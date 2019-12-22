@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>PresentationBase</id>
+    <version>2.0.0</version>
+	<description>PresentationBase is a lightweight MVVM implementation for WPF (Windows Presentation Foundation).</description>
+    <authors>David Sungaila</authors>
+    <owners>David Sungaila</owners>
+	<projectUrl>https://github.com/sungaila/PresentationBase</projectUrl>
+	<license type="expression">MIT</license>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <releaseNotes>Initial release.</releaseNotes>
+	<tags>WPF MVVM ViewModel Converter Command INotifyPropertyChanged INotifyDataErrorInfo ICommand XAML Markup DTO</tags>
+	<repository type="git" url="https://github.com/sungaila/PresentationBase.git" branch="master" commit="" />
+	<dependencies>
+      <group targetFramework=".NETFramework4.8" />
+	  <group targetFramework=".NETCoreApp3.1" />
+    </dependencies>
+  </metadata>
+  <files>
+      <file src="lib\net48\**" target="lib/net48" />
+	  <file src="lib\netcoreapp3.1\**" target="lib/netcoreapp3.1" />
+    </files>
+</package>

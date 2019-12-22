@@ -1,0 +1,35 @@
+#nullable enable
+using System;
+using System.Globalization;
+using System.Windows;
+using System.Windows.Data;
+
+namespace PresentationBase.Converters
+{
+	/// <summary>
+	/// Compares a given converter value with the given <see cref="Binding.ConverterParameter"/> value.
+	/// Returns <see cref="Visibility.Visible"/> when both values are equal. Otherwise <see cref="Visibility.Collapsed"/>.
+	/// </summary>
+	[ValueConversion(typeof(bool), typeof(Visibility), ParameterType = typeof(object))]
+	public class EqualsToVisibilityConverter
+		: IValueConverter
+	{
+		public static readonly EqualsToVisibilityConverter Instance = new EqualsToVisibilityConverter();
+
+		public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			if (value == null && parameter == null)
+				return Visibility.Visible;
+
+			if (value != null)
+				return value.Equals(parameter) ? Visibility.Visible : Visibility.Collapsed;
+
+			return parameter.Equals(value) ? Visibility.Visible : Visibility.Collapsed;
+		}
+
+		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			throw new NotImplementedException();
+		}
+	}
+}

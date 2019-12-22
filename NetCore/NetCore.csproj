@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <AssemblyName>PresentationBase</AssemblyName>
+    <RootNamespace>PresentationBase</RootNamespace>
+    <Version>2.0.0</Version>
+    <AssemblyVersion>2.0.0</AssemblyVersion>
+    <FileVersion>2.0.0</FileVersion>
+    <Authors>David Sungaila</Authors>
+    <Company />
+    <Description>PresentationBase is a lightweight MVVM implementation for WPF (Windows Presentation Foundation).</Description>
+    <Copyright>MIT</Copyright>
+    <PackageProjectUrl>https://github.com/sungaila/PresentationBase</PackageProjectUrl>
+	<LangVersion>8.0</LangVersion>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DebugType>pdbonly</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>..\NuGet\lib\</OutputPath>
+  </PropertyGroup>
+
+  <Import Project="..\Shared\Shared.projitems" Label="Shared" />
+
+</Project>
