@@ -14,9 +14,9 @@
     <Description>A lightweight MVVM implementation for WPF (Windows Presentation Foundation) targeting both .NET Framework and .NET Core.</Description>
     <Copyright>MIT</Copyright>
     <PackageProjectUrl>https://github.com/sungaila/PresentationBase</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/sungaila/PresentationBase</RepositoryUrl>
-    <PackageIconUrl />
-	<LangVersion>8.0</LangVersion>
+    <RepositoryUrl>https://github.com/sungaila/PresentationBase.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+	  <LangVersion>8.0</LangVersion>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
