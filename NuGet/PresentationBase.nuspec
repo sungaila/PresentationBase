@@ -12,7 +12,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <releaseNotes>Initial release.</releaseNotes>
     <tags>WPF MVVM ViewModel Converter IValueConverter Command INotifyPropertyChanged INotifyDataErrorInfo ICommand XAML Markup DTO</tags>
-    <repository type="git" url="https://github.com/sungaila/PresentationBase.git" branch="master" commit="e4222ee0daf22b9274cd8746a5392d5b4ebdaee3" />
+    <repository type="git" url="https://github.com/sungaila/PresentationBase.git" branch="master" commit="dc86a005e780ac0cbdb080ea5fe2c56f1bc0fe02" />
     <dependencies>
       <group targetFramework=".NETFramework4.5" />
       <group targetFramework=".NETFramework4.5.1" />
