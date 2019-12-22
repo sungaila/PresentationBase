@@ -7,7 +7,7 @@ namespace PresentationBase.Extensions
 	/// <summary>
 	/// Allows to convert a given property from a view model into a <see cref="string"/> for sorting.
 	/// The returned <see cref="string"/> pads leading zeros to any found decimal substring.
-	/// This is useful when a natual sort is needed that should integrate into WPFs binding system without much effort.
+	/// This is useful when a natrual sort is needed that should integrate into WPFs binding system without much effort.
 	/// </summary>
 	public class NaturalSortHelper
 	{

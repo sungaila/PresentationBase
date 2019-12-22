@@ -354,3 +354,4 @@ MigrationBackup/
 
 # PresentationBase specific ignores
 NuGet/lib/
+NuGetSymbols/lib/

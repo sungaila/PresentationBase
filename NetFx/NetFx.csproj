@@ -5,9 +5,9 @@
 	<OutputType>Library</OutputType>
     <RootNamespace>PresentationBase</RootNamespace>
     <AssemblyName>PresentationBase</AssemblyName>
-    <Version>2.0.2</Version>
-    <AssemblyVersion>2.0.2</AssemblyVersion>
-    <FileVersion>2.0.2</FileVersion>
+    <Version>2.0.3</Version>
+    <AssemblyVersion>2.0.3</AssemblyVersion>
+    <FileVersion>2.0.3</FileVersion>
     <Authors>David Sungaila</Authors>
     <Company />
     <Description>A lightweight MVVM implementation for WPF (Windows Presentation Foundation) targeting both .NET Framework and .NET Core.</Description>
@@ -35,6 +35,12 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net45|AnyCPU'">
+    <DocumentationFile></DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net45|AnyCPU'">
+    <DocumentationFile>..\NuGet\lib\PresentationBase.xml</DocumentationFile>
   </PropertyGroup>
   <Import Project="..\Shared\Shared.projitems" Label="Shared" />
   <ItemGroup>

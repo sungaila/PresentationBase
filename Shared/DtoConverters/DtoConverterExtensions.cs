@@ -50,7 +50,7 @@ namespace PresentationBase.DtoConverters
 		/// <typeparam name="TDto">The data transfer object type to create.</typeparam>
 		/// <param name="viewModel">The view model to convert.</param>
 		/// <returns>The converted data transfer object.</returns>
-		public static TDto ToModel<TDto>(this ViewModel viewModel)
+		public static TDto ToDto<TDto>(this ViewModel viewModel)
 			where TDto : class
 		{
 			if (viewModel == null)
