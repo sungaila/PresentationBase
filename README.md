@@ -7,7 +7,7 @@ It contains base implementations for *view models* (and their *commands*), frequ
 
 A sample project can be found here: [SUBSTitute](https://github.com/sungaila/SUBSTitute). Feel free to grab it from [NuGet.org](https://www.nuget.org/packages/PresentationBase) or to fork it for your own needs!
 
-## Samples
+## Examples
 Here are some examples for using PresentationBase in your project.
 
 ### ViewModels with bindable properties
@@ -170,6 +170,7 @@ public class AwesomeViewModel : ViewModel
 // C# code of the conversion
 var dto = new AwesomeTransferDataObject { PersonName = "John" };
 var viewModel = dto.ToViewModel<AwesomeViewModel>();
-viewModel.Age = 33;
+if (viewModel.Name == "John")
+    viewModel.Age = 33;
 var dto2 = viewModel.ToDto<AwesomeTransferDataObject>();
 ```
