@@ -1,19 +1,22 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFrameworks>netcoreapp3.0;netcoreapp3.1</TargetFrameworks>
+	<OutputType>Library</OutputType>
     <UseWPF>true</UseWPF>
     <AssemblyName>PresentationBase</AssemblyName>
     <RootNamespace>PresentationBase</RootNamespace>
-    <Version>2.0.1</Version>
-    <AssemblyVersion>2.0.1</AssemblyVersion>
-    <FileVersion>2.0.1</FileVersion>
+    <Version>2.0.2</Version>
+    <AssemblyVersion>2.0.2</AssemblyVersion>
+    <FileVersion>2.0.2</FileVersion>
     <Authors>David Sungaila</Authors>
     <Company />
-    <Description>PresentationBase is a lightweight MVVM implementation for WPF (Windows Presentation Foundation).</Description>
+    <Description>A lightweight MVVM implementation for WPF (Windows Presentation Foundation) targeting both .NET Framework and .NET Core.</Description>
     <Copyright>MIT</Copyright>
     <PackageProjectUrl>https://github.com/sungaila/PresentationBase</PackageProjectUrl>
-    <LangVersion>8.0</LangVersion>
+    <RepositoryUrl>https://github.com/sungaila/PresentationBase</RepositoryUrl>
+    <PackageIconUrl />
+	<LangVersion>8.0</LangVersion>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
@@ -22,6 +25,13 @@
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>..\NuGet\lib\</OutputPath>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\Icon.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
 
   <Import Project="..\Shared\Shared.projitems" Label="Shared" />
 
