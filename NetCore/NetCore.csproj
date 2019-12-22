@@ -5,15 +5,15 @@
     <UseWPF>true</UseWPF>
     <AssemblyName>PresentationBase</AssemblyName>
     <RootNamespace>PresentationBase</RootNamespace>
-    <Version>2.0.0</Version>
-    <AssemblyVersion>2.0.0</AssemblyVersion>
-    <FileVersion>2.0.0</FileVersion>
+    <Version>2.0.1</Version>
+    <AssemblyVersion>2.0.1</AssemblyVersion>
+    <FileVersion>2.0.1</FileVersion>
     <Authors>David Sungaila</Authors>
     <Company />
     <Description>PresentationBase is a lightweight MVVM implementation for WPF (Windows Presentation Foundation).</Description>
     <Copyright>MIT</Copyright>
     <PackageProjectUrl>https://github.com/sungaila/PresentationBase</PackageProjectUrl>
-	<LangVersion>8.0</LangVersion>
+    <LangVersion>8.0</LangVersion>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 

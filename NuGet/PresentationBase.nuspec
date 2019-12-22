@@ -8,10 +8,11 @@
     <owners>David Sungaila</owners>
 	<projectUrl>https://github.com/sungaila/PresentationBase</projectUrl>
 	<license type="expression">MIT</license>
+	<icon>Icon.png</icon>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <releaseNotes>Initial release.</releaseNotes>
 	<tags>WPF MVVM ViewModel Converter Command INotifyPropertyChanged INotifyDataErrorInfo ICommand XAML Markup DTO</tags>
-	<repository type="git" url="https://github.com/sungaila/PresentationBase.git" branch="master" commit="" />
+	<repository type="git" url="https://github.com/sungaila/PresentationBase.git" branch="master" commit="9a852dfcc628fdb3aa2bd361a0f0f37a7527fbb7" />
 	<dependencies>
       <group targetFramework=".NETFramework4.8" />
 	  <group targetFramework=".NETCoreApp3.1" />
@@ -20,5 +21,6 @@
   <files>
       <file src="lib\net48\**" target="lib/net48" />
 	  <file src="lib\netcoreapp3.1\**" target="lib/netcoreapp3.1" />
+	  <file src="Icon.png" target="" />
     </files>
 </package>
