@@ -12,17 +12,17 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <releaseNotes>Initial release.</releaseNotes>
 	<tags>WPF MVVM ViewModel Converter IValueConverter Command INotifyPropertyChanged INotifyDataErrorInfo ICommand XAML Markup DTO</tags>
-	<repository type="git" url="https://github.com/sungaila/PresentationBase.git" branch="master" commit="69c615889eaaea6cdb28309de13ffc1560f938d9" />
+	<repository type="git" url="https://github.com/sungaila/PresentationBase.git" branch="master" commit="c8b46611c01a7df94fda2b107b1fb1318f03c7c9" />
 	<dependencies>
 	  <group targetFramework=".NETFramework4.5" />
-	  <group targetFramework=".NETFramework4.51" />
-	  <group targetFramework=".NETFramework4.52" />
+	  <group targetFramework=".NETFramework4.5.1" />
+	  <group targetFramework=".NETFramework4.5.2" />
 	  <group targetFramework=".NETFramework4.6" />
-	  <group targetFramework=".NETFramework4.61" />
-	  <group targetFramework=".NETFramework4.62" />
+	  <group targetFramework=".NETFramework4.6.1" />
+	  <group targetFramework=".NETFramework4.6.2" />
 	  <group targetFramework=".NETFramework4.7" />
-	  <group targetFramework=".NETFramework4.71" />
-	  <group targetFramework=".NETFramework4.72" />
+	  <group targetFramework=".NETFramework4.7.1" />
+	  <group targetFramework=".NETFramework4.7.2" />
       <group targetFramework=".NETFramework4.8" />
 	  <group targetFramework=".NETCoreApp3.0" />
 	  <group targetFramework=".NETCoreApp3.1" />
