@@ -63,10 +63,11 @@ public class AwesomeViewModel : ViewModel
 // C# code
 public class AwesomeViewModel : ViewModel
 {
-    public ObservableViewModelCollection<ChildViewModel> Children => new ObservableViewModelCollection<ChildViewModel>(this);
+    public ObservableViewModelCollection<ChildViewModel> Children { get; }
     
     public AwesomeViewModel()
     {
+        Children = new ObservableViewModelCollection<ChildViewModel>(this);
         Children.Add(new ChildViewModel { Nickname = "Blinky" });
         Children.Add(new ChildViewModel { Nickname = "Pinky" });
         Children.Add(new ChildViewModel { Nickname = "Inky" });
