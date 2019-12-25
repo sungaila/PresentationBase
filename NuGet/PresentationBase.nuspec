@@ -2,7 +2,7 @@
 <package>
   <metadata minClientVersion="4.6">
     <id>PresentationBase</id>
-    <version>2.1.0</version>
+    <version>2.1.1</version>
     <authors>David Sungaila</authors>
     <owners>David Sungaila</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
