@@ -14,7 +14,7 @@
     <description>A lightweight MVVM implementation for WPF (Windows Presentation Foundation) targeting both .NET Framework and .NET Core.</description>
     <releaseNotes>Added support for async commands, view model wide validation errors and signed assemblies for strong names.</releaseNotes>
     <tags>WPF MVVM ViewModel Converter IValueConverter Command INotifyPropertyChanged INotifyDataErrorInfo ICommand XAML Markup DTO C#</tags>
-    <repository type="git" url="https://github.com/sungaila/PresentationBase.git" branch="master" commit="9e5e7a62b01c0f35a6895b6b38bf8a4da0c1897b" />
+    <repository type="git" url="https://github.com/sungaila/PresentationBase.git" branch="master" commit="a8a9d62f96a43c574a9034f69799a64bdebe8318" />
     <dependencies>
       <group targetFramework="net45" />
       <group targetFramework="net48" />
