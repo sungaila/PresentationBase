@@ -9,6 +9,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCore", "NetCore\NetCore.
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Shared", "Shared\Shared.shproj", "{BA2CB0F3-1A5D-4D58-BB35-1FC97E07FE96}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuGet", "NuGet", "{FEC1B1DF-BFF6-449C-8D49-F99F716DB9B0}"
+	ProjectSection(SolutionItems) = preProject
+		NuGet\Icon.png = NuGet\Icon.png
+		NuGet\PresentationBase.nuspec = NuGet\PresentationBase.nuspec
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Shared\Shared.projitems*{915e2663-a456-462b-900c-980b45e08021}*SharedItemsImports = 4

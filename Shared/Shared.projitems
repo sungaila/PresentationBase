@@ -39,4 +39,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModelCommand.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)PresentationBase.pfx" />
+  </ItemGroup>
 </Project>

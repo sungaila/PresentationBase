@@ -1,31 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package>
-  <metadata>
+  <metadata minClientVersion="4.6">
     <id>PresentationBase</id>
-    <version>2.0.3</version>
-    <description>A lightweight MVVM implementation for WPF (Windows Presentation Foundation) targeting both .NET Framework and .NET Core.</description>
+    <version>2.1.0</version>
     <authors>David Sungaila</authors>
     <owners>David Sungaila</owners>
-    <projectUrl>https://github.com/sungaila/PresentationBase</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <license type="expression">MIT</license>
     <icon>Icon.png</icon>
-    <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <releaseNotes>Initial release.</releaseNotes>
-    <tags>WPF MVVM ViewModel Converter IValueConverter Command INotifyPropertyChanged INotifyDataErrorInfo ICommand XAML Markup DTO</tags>
+    <projectUrl>https://github.com/sungaila/PresentationBase</projectUrl>
+    <description>A lightweight MVVM implementation for WPF (Windows Presentation Foundation) targeting both .NET Framework and .NET Core.</description>
+    <releaseNotes>added strong names to assemblies</releaseNotes>
+    <tags>WPF MVVM ViewModel Converter IValueConverter Command INotifyPropertyChanged INotifyDataErrorInfo ICommand XAML Markup DTO C#</tags>
     <repository type="git" url="https://github.com/sungaila/PresentationBase.git" branch="master" commit="d974d8df6928b1ee4d48f6d7a9d2c9b9fe023b75" />
     <dependencies>
-      <group targetFramework=".NETFramework4.5" />
-      <group targetFramework=".NETFramework4.5.1" />
-      <group targetFramework=".NETFramework4.5.2" />
-      <group targetFramework=".NETFramework4.6" />
-      <group targetFramework=".NETFramework4.6.1" />
-      <group targetFramework=".NETFramework4.6.2" />
-      <group targetFramework=".NETFramework4.7" />
-      <group targetFramework=".NETFramework4.7.1" />
-      <group targetFramework=".NETFramework4.7.2" />
-      <group targetFramework=".NETFramework4.8" />
-      <group targetFramework=".NETCoreApp3.0" />
-      <group targetFramework=".NETCoreApp3.1" />
+      <group targetFramework="net45" />
+      <group targetFramework="net48" />
+      <group targetFramework="netcoreapp3.0">
+        <dependency id="Microsoft.NETCore.App" version="3.0.0" />
+        <dependency id="Microsoft.WindowsDesktop.App.Ref" version="3.0.0" />
+      </group>
+      <group targetFramework="netcoreapp3.1">
+        <dependency id="Microsoft.NETCore.App" version="3.1.0" />
+        <dependency id="Microsoft.WindowsDesktop.App.Ref" version="3.1.0" />
+      </group>
     </dependencies>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="PresentationCore" targetFramework="net45" />
+      <frameworkAssembly assemblyName="PresentationFramework" targetFramework="net45" />
+      <frameworkAssembly assemblyName="System.Xaml" targetFramework="net45" />
+      <frameworkAssembly assemblyName="WindowsBase" targetFramework="net45" />
+      <frameworkAssembly assemblyName="PresentationCore"  targetFramework="net48" />
+      <frameworkAssembly assemblyName="PresentationFramework"  targetFramework="net48" />
+      <frameworkAssembly assemblyName="System.Xaml"  targetFramework="net48" />
+      <frameworkAssembly assemblyName="WindowsBase"  targetFramework="net48" />
+    </frameworkAssemblies>
   </metadata>
 </package>
