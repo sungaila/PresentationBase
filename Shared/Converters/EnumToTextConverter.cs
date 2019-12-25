@@ -1,4 +1,3 @@
-#nullable enable
 using System;
 using System.Globalization;
 using System.Windows;
@@ -13,8 +12,12 @@ namespace PresentationBase.Converters
 	public class EnumToTextConverter
 		: IValueConverter
 	{
+		/// <summary>
+		/// A static instance of this value converter.
+		/// </summary>
 		public static readonly EnumToTextConverter Instance = new EnumToTextConverter();
 
+		/// <inheritdoc/>
 		public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			if (!(value is Enum))
@@ -23,7 +26,8 @@ namespace PresentationBase.Converters
 			return Enum.GetName(value.GetType(), value);
 		}
 
-		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+		/// <inheritdoc/>
+		public object? ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			throw new NotImplementedException();
 		}

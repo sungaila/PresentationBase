@@ -1,4 +1,3 @@
-#nullable enable
 using System;
 using System.Windows;
 using System.Windows.Input;
@@ -11,11 +10,19 @@ namespace PresentationBase
 	/// </summary>
 	/// <typeparam name="TViewModel">The type of the view model.</typeparam>
 	public abstract class ViewModelCommand<TViewModel>
-		: IViewModelCommand
+		: IViewModelCommand<TViewModel>
 		where TViewModel : ViewModel
 	{
+		/// <summary>
+		/// Raised when changes to the view model were made and <see cref="CanExecute(TViewModel)"/> should be reevaluated.
+		/// </summary>
 		public event EventHandler? CanExecuteChanged;
 
+		/// <summary>
+		/// Implementation of <see cref="ICommand.CanExecute(object)"/>.
+		/// The <paramref name="parameter"/> is not cast to <typeparamref name="TViewModel"/> here.
+		/// </summary>
+		/// <param name="parameter">The view model.</param>
 		bool ICommand.CanExecute(object parameter)
 		{
 			if (!(parameter is TViewModel viewModel))
@@ -24,6 +31,11 @@ namespace PresentationBase
 			return CanExecute(viewModel);
 		}
 
+		/// <summary>
+		/// Implementation of <see cref="ICommand.Execute(object)"/>.
+		/// The <paramref name="parameter"/> is not cast to <typeparamref name="TViewModel"/> here.
+		/// </summary>
+		/// <param name="parameter">The view model.</param>
 		void ICommand.Execute(object parameter)
 		{
 			if (!(parameter is TViewModel viewModel))
@@ -32,22 +44,16 @@ namespace PresentationBase
 			Execute(viewModel);
 		}
 
-		/// <summary>
-		/// Returns if the command can be executed for the given view model.
-		/// </summary>
-		/// <param name="parameter">The view model this command would be executed on.</param>
-		/// <returns>Returns if <see cref="Execute(TViewModel)"/> is allowed for the given <paramref name="parameter"/>.</returns>
+		/// <inheritdoc/>
 		public virtual bool CanExecute(TViewModel parameter)
 		{
 			return parameter != null;
 		}
 
-		/// <summary>
-		/// Executes the command for the given view model.
-		/// </summary>
-		/// <param name="parameter">The view model this command is executed on.</param>
+		/// <inheritdoc/>
 		public abstract void Execute(TViewModel parameter);
 
+		/// <inheritdoc/>
 		public void RaiseCanExecuteChanged()
 		{
 			if (Application.Current == null)

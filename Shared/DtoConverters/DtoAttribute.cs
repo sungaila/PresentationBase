@@ -1,4 +1,3 @@
-#nullable enable
 using System;
 using System.Linq;
 
@@ -6,7 +5,7 @@ namespace PresentationBase.DtoConverters
 {
 	/// <summary>
 	/// Links a view model to a data transfer object.
-	/// This enables conversion with <see cref="DtoConverterExtensions.ToDto{TModel}(ViewModel)" and <see cref="DtoConverterExtensions.ToViewModel{TViewModel}(object)"/>./>
+	/// This enables conversion with <see cref="DtoConverterExtensions.ToDto{TModel}(ViewModel)"/> and <see cref="DtoConverterExtensions.ToViewModel{TViewModel}(object)"/>./>
 	/// </summary>
 	[AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
 	public class DtoAttribute

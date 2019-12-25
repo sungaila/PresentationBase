@@ -1,4 +1,3 @@
-#nullable enable
 using System;
 using System.Globalization;
 using System.Windows;
@@ -14,8 +13,12 @@ namespace PresentationBase.Converters
 	public class EqualsToVisibilityConverter
 		: IValueConverter
 	{
+		/// <summary>
+		/// A static instance of this value converter.
+		/// </summary>
 		public static readonly EqualsToVisibilityConverter Instance = new EqualsToVisibilityConverter();
 
+		/// <inheritdoc/>
 		public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			if (value == null && parameter == null)
@@ -27,7 +30,8 @@ namespace PresentationBase.Converters
 			return parameter.Equals(value) ? Visibility.Visible : Visibility.Collapsed;
 		}
 
-		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+		/// <inheritdoc/>
+		public object? ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			throw new NotImplementedException();
 		}

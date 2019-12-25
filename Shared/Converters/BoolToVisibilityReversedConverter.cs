@@ -1,4 +1,3 @@
-#nullable enable
 using System;
 using System.Globalization;
 using System.Windows;
@@ -13,8 +12,12 @@ namespace PresentationBase.Converters
 	public class BoolToVisibilityReversedConverter
 		: IValueConverter
 	{
+		/// <summary>
+		/// A static instance of this value converter.
+		/// </summary>
 		public static readonly BoolToVisibilityReversedConverter Instance = new BoolToVisibilityReversedConverter();
 
+		/// <inheritdoc/>
 		public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			if (!(value is bool))
@@ -23,7 +26,8 @@ namespace PresentationBase.Converters
 			return (bool)value ? Visibility.Collapsed : Visibility.Visible;
 		}
 
-		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+		/// <inheritdoc/>
+		public object? ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			if (!(value is Visibility))
 				return DependencyProperty.UnsetValue;

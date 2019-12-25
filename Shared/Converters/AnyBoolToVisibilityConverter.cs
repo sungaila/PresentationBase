@@ -1,4 +1,3 @@
-#nullable enable
 using System;
 using System.Globalization;
 using System.Linq;
@@ -15,8 +14,12 @@ namespace PresentationBase.Converters
 	public class AnyBoolToVisibilityConverter
 		: IMultiValueConverter
 	{
+		/// <summary>
+		/// A static instance of this value converter.
+		/// </summary>
 		public static readonly AnyBoolToVisibilityConverter Instance = new AnyBoolToVisibilityConverter();
 
+		/// <inheritdoc/>
 		public object? Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
 		{
 			if (values.Any(v => !(v is bool)))
@@ -25,7 +28,8 @@ namespace PresentationBase.Converters
 			return values.Cast<bool>().Any(b => b) ? Visibility.Visible : Visibility.Collapsed;
 		}
 
-		public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+		/// <inheritdoc/>
+		public object[]? ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
 		{
 			throw new NotImplementedException();
 		}

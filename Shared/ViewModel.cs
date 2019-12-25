@@ -1,4 +1,3 @@
-#nullable enable
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,6 +5,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Windows.Input;
 
 namespace PresentationBase
 {
@@ -15,6 +15,9 @@ namespace PresentationBase
 	public abstract class ViewModel
 		: INotifyPropertyChanged, INotifyDataErrorInfo
 	{
+		/// <summary>
+		/// Creates a new <see cref="ViewModel"/> instance.
+		/// </summary>
 		public ViewModel()
 		{
 			// add all matching commands found with reflection
@@ -29,14 +32,24 @@ namespace PresentationBase
 
 		/// <summary>
 		/// Implementation of <see cref="INotifyDataErrorInfo.ErrorsChanged"/>.
-		/// Is used to validate bound properties.
+		/// Is used to validate bound properties (or the view model itself) for bindings.
 		/// </summary>
 		public event EventHandler<DataErrorsChangedEventArgs>? ErrorsChanged;
 
 		/// <summary>
+		/// Raises the <see cref="PropertyChanged"/> event for all properties.
+		/// </summary>
+		protected void RaiseAllPropertiesChanged()
+		{
+			// setting PropertyChangedEventArgs.PropertyName to null or string.Empty indicates that all properties changed
+			// see: https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?redirectedfrom=MSDN&view=netframework-4.8#remarks
+			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(null));
+		}
+
+		/// <summary>
 		/// Raises the <see cref="PropertyChanged"/> event for the given property name.
 		/// </summary>
-		/// <param name="propertyName">The name of the property which has been changed. When omitted the property name will be the member name of the caller (which is ideally the view model property).</param>
+		/// <param name="propertyName">The name of the property which has been changed. When omitted the property name will be the member name of the caller (which it is when called from the view model property setter).</param>
 		protected void RaisePropertyChanged([CallerMemberName]string? propertyName = null)
 		{
 			if (string.IsNullOrEmpty(propertyName))
@@ -49,16 +62,15 @@ namespace PresentationBase
 		}
 
 		/// <summary>
-		/// Checks if the old value and new value differ.
-		/// If both values are unequal, then the new value is set and <see cref="RaisePropertyChanged"/> is called.
-		/// Call this method whenever a view model property has changed (and bound views must notice).
+		/// Sets the property value, ensures bindings are updated and validates (if <paramref name="propertyValidation"/> is set).<para/>
+		/// Updates will be skipped (except for validation) if the <paramref name="newValue"/> equals the previous property value.
 		/// </summary>
 		/// <typeparam name="T">The type of the changed property.</typeparam>
 		/// <param name="propertyField">The property field which contains the old value.</param>
 		/// <param name="newValue">The new value to set.</param>
 		/// <param name="propertyValidation">An optional function used for validation of the changed property. It must return a collection of error messages.</param>
-		/// <param name="propertyName">The name of the property which has been changed. When omitted the property name will be the member name of the caller (which is ideally the view model property).</param>
-		/// <returns>Returns <see cref="true"/> when the value was set.</returns>
+		/// <param name="propertyName">The name of the property which has been changed. When omitted the property name will be the member name of the caller (which it is when called from the view model property setter).</param>
+		/// <returns>Returns <c>true</c> if the new value was set.</returns>
 		protected bool SetProperty<T>(ref T propertyField, T newValue, Func<T, IEnumerable<string>>? propertyValidation = null, [CallerMemberName]string? propertyName = null)
 		{
 			if (string.IsNullOrEmpty(propertyName))
@@ -67,25 +79,31 @@ namespace PresentationBase
 				return false;
 			}
 
-			AddValidationErrors(propertyName!, propertyValidation?.Invoke(newValue));
+			// validate the new value if needed
+			AddPropertyErrors(propertyName!, propertyValidation?.Invoke(newValue));
 
+			// stop when the new and old value equal
 			if (EqualityComparer<T>.Default.Equals(propertyField, newValue))
 				return false;
 
+			// otherwise set the new value for the property
 			propertyField = newValue;
 
+			// if the value was a view model then make sure to update its ParentViewModel
 			if (propertyName != nameof(ParentViewModel) && typeof(ViewModel).IsAssignableFrom(typeof(T)) && newValue != null)
 				(newValue as ViewModel)!.ParentViewModel = this;
 
+			// inform bindings about the changed property
 			RaisePropertyChanged(propertyName);
 
-			if (propertyName != nameof(IsDirty) && !IgnoredDirtyProperties.Contains(propertyName))
+			// set the IsDirty flag to true (unless it is forbidden for this property name)
+			if (!AlwaysIgnoredDirtyProperties.Contains(propertyName) && IgnoredDirtyProperties != null && !IgnoredDirtyProperties.Contains(propertyName))
 			{
 				IsDirty = true;
+
+				// bubble the IsDirty flag to any ParentViewModel found
 				if (ParentViewModel != null)
-				{
 					ParentViewModel.IsDirty = true;
-				}
 			}
 
 			return true;
@@ -94,9 +112,9 @@ namespace PresentationBase
 		private ViewModel? _parentViewModel;
 
 		/// <summary>
-		/// The logical parent of this view model.
+		/// The logical parent of this view model. Please note that circular references are not supported.
 		/// </summary>
-		/// <remarks>Every view model can have one parent only.</remarks>
+		/// <remarks>Every view model can have a single parent only.</remarks>
 		public ViewModel? ParentViewModel
 		{
 			get => _parentViewModel;
@@ -128,10 +146,10 @@ namespace PresentationBase
 		/// Adds commands to this view model.
 		/// This ensures that <see cref="ICommand.CanExecute(object)"/> is called whenever a property was changed.
 		/// </summary>
-		/// <param name="commands"></param>
-		private void AddCommands(params IViewModelCommand[] commands)
+		/// <param name="commands">The commands to add.</param>
+		private void AddCommands(params IViewModelCommand<ViewModel>[] commands)
 		{
-			foreach (IViewModelCommand command in commands)
+			foreach (IViewModelCommand<ViewModel> command in commands)
 			{
 				if (command == null)
 					continue;
@@ -149,10 +167,10 @@ namespace PresentationBase
 		/// <summary>
 		/// Removes existing commands for this view model.
 		/// </summary>
-		/// <param name="commands"></param>
-		private void RemoveCommands(params IViewModelCommand[] commands)
+		/// <param name="commands">The commands to remove.</param>
+		private void RemoveCommands(params IViewModelCommand<ViewModel>[] commands)
 		{
-			foreach (IViewModelCommand command in commands)
+			foreach (IViewModelCommand<ViewModel> command in commands)
 			{
 				if (command == null)
 					continue;
@@ -170,7 +188,7 @@ namespace PresentationBase
 		/// <summary>
 		/// A dictionary filled with commands for this view model. The key is the <see cref="Type"/> of the command.
 		/// </summary>
-		public Dictionary<Type, IViewModelCommand> Commands { get; } = new Dictionary<Type, IViewModelCommand>();
+		protected readonly Dictionary<Type, IViewModelCommand<ViewModel>> Commands = new Dictionary<Type, IViewModelCommand<ViewModel>>();
 
 		/// <summary>
 		/// A multi purpose <see cref="object"/> tag for this view model.
@@ -181,35 +199,64 @@ namespace PresentationBase
 		private readonly Dictionary<string, List<string>> _errors = new Dictionary<string, List<string>>();
 
 		/// <summary>
-		/// If any property has failed validation.
+		/// If any property or the view model itself has failed validation.<para/>
 		/// </summary>
 		public bool HasErrors => _errors.Any();
 
 		/// <summary>
-		/// If there a no errors for this ViewModel.
-		/// It is the inverse to <see cref="HasErrors"/>.
-		/// Can be overwritten e.g. if children must be valid.
+		/// If all properties and the view model itself succeeded validation.<para/>
 		/// </summary>
+		/// <remarks>Overwrite this if e.g. children must be valid aswell.</remarks>
 		public virtual bool IsValid => !HasErrors;
 
 		/// <summary>
-		/// Returns all errors for a given property name.
+		/// Returns all errors for a given <paramref name="propertyName"/> or for the entire view model.
 		/// </summary>
-		/// <param name="propertyName">The property name.</param>
+		/// <param name="propertyName">The property name. Set to <c>null</c> to get all view model errors.</param>
 		public IEnumerable? GetErrors(string propertyName)
 		{
-			return !string.IsNullOrEmpty(propertyName) && _errors.ContainsKey(propertyName)
+			if (propertyName == null)
+				propertyName = string.Empty;
+
+			return _errors.ContainsKey(propertyName)
 				? _errors[propertyName]
 				: null;
 		}
 
-		private void ClearErrors(string propertyName)
+		/// <summary>
+		/// Clears both view model and all property errors.
+		/// </summary>
+		protected void ClearAllErrors()
+		{
+			ClearViewModelErrors();
+
+			foreach (var error in _errors)
+				ClearPropertyErrors(error.Key);
+		}
+
+		/// <summary>
+		/// Clears all view model errors.
+		/// </summary>
+		protected void ClearViewModelErrors()
+		{
+			if (!_errors.ContainsKey(string.Empty))
+				return;
+
+			_errors.Remove(string.Empty);
+			RaiseViewModelErrorsChanged();
+		}
+
+		/// <summary>
+		/// Clears all property errors for the given <paramref name="propertyName"/>.
+		/// </summary>
+		/// <param name="propertyName">The property name.</param>
+		protected void ClearPropertyErrors(string propertyName)
 		{
 			if (string.IsNullOrEmpty(propertyName) || !_errors.ContainsKey(propertyName))
 				return;
 
 			_errors.Remove(propertyName);
-			OnErrorsChanged(propertyName);
+			RaisePropertyErrorsChanged(propertyName);
 		}
 
 		private void AddError(string propertyName, string errorMessage)
@@ -222,32 +269,82 @@ namespace PresentationBase
 			if (!_errors[propertyName].Contains(errorMessage))
 			{
 				_errors[propertyName].Add(errorMessage);
-				OnErrorsChanged(propertyName);
+				RaisePropertyErrorsChanged(propertyName);
 			}
 		}
 
-		private void AddValidationErrors(string propertyName, IEnumerable<string>? errorMessages)
+		/// <summary>
+		/// Adds a collection of error messages which invalidate the entire view model.
+		/// </summary>
+		/// <param name="errorMessages">The collection of error messages.</param>
+		/// <param name="clearPreviousErrors">If the previous errors should be cleared before adding the new ones.</param>
+		protected void AddViewModelErrors(IEnumerable<string>? errorMessages, bool clearPreviousErrors = true)
 		{
-			if (string.IsNullOrEmpty(propertyName))
-				return;
-
-			ClearErrors(propertyName);
+			if (clearPreviousErrors)
+				ClearViewModelErrors();
 
 			if (errorMessages == null)
 				return;
 
 			foreach (string errorMessage in errorMessages)
 			{
-				AddError(propertyName, errorMessage);
+				AddError(string.Empty, errorMessage);
 			}
 		}
 
-		private void OnErrorsChanged(string propertyName)
+		/// <summary>
+		/// Adds a collection of error messages for the given <paramref name="propertyName"/>.
+		/// </summary>
+		/// <param name="propertyName">The property name.</param>
+		/// <param name="errorMessages">The collection of error messages.</param>
+		/// <param name="clearPreviousErrors">If the previous errors should be cleared before adding the new ones.</param>
+		protected void AddPropertyErrors(string propertyName, IEnumerable<string>? errorMessages, bool clearPreviousErrors = true)
 		{
+			if (string.IsNullOrEmpty(propertyName))
+				return;
+
+			if (clearPreviousErrors)
+				ClearPropertyErrors(propertyName);
+
+			if (errorMessages == null)
+				return;
+
+			foreach (string errorMessage in errorMessages)
+				AddError(propertyName, errorMessage);
+		}
+
+		/// <summary>
+		/// Raises the <see cref="ErrorsChanged"/> event for view model errors.
+		/// </summary>
+		protected void RaiseViewModelErrorsChanged()
+		{
+			ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(null));
+			RaisePropertyChanged(nameof(HasErrors));
+			RaisePropertyChanged(nameof(IsValid));
+		}
+
+		/// <summary>
+		/// Raises the <see cref="ErrorsChanged"/> event for the given <paramref name="propertyName"/>.
+		/// </summary>
+		/// <param name="propertyName">The property name.</param>
+		protected void RaisePropertyErrorsChanged(string propertyName)
+		{
+			if (string.IsNullOrEmpty(propertyName))
+			{
+				Debug.Fail($"{nameof(ViewModel)}.{nameof(ViewModel.RaisePropertyErrorsChanged)} has been called with a null or empty {nameof(propertyName)}.");
+				return;
+			}
+
 			ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
 			RaisePropertyChanged(nameof(HasErrors));
 			RaisePropertyChanged(nameof(IsValid));
 		}
+
+		/// <summary>
+		/// A collection of properties which are always ignored (and cannot be overwritten like <see cref="IgnoredDirtyProperties"/>).
+		/// </summary>
+		/// <remarks>Overwrite this to ignore properties.</remarks>
+		private IEnumerable<string> AlwaysIgnoredDirtyProperties => new List<string> { nameof(IsDirty), nameof(IsRefreshing), nameof(Tag) };
 
 		/// <summary>
 		/// A collection of property names which do not set the <see cref="IsDirty"/> flag when changed.
@@ -257,7 +354,7 @@ namespace PresentationBase
 		private bool _isDirty;
 
 		/// <summary>
-		/// Indicates that there are changes made to this <see cref="ViewModel"/> since its creation.
+		/// Indicates that there are changes made to this view model since its creation.
 		/// </summary>
 		public bool IsDirty
 		{
@@ -268,7 +365,7 @@ namespace PresentationBase
 		private bool _isRefreshing;
 
 		/// <summary>
-		/// Indicates that this <see cref="ViewModel"/> is changing and others should avoid interfering.
+		/// Indicates that this view model is changing and others should avoid interfering.
 		/// </summary>
 		public bool IsRefreshing
 		{
@@ -279,14 +376,14 @@ namespace PresentationBase
 		/// <summary>
 		/// A list containing all known commands found with reflection.
 		/// </summary>
-		private static readonly List<IViewModelCommand> KnownCommands = new List<IViewModelCommand>();
+		private static readonly List<IViewModelCommand<ViewModel>> KnownCommands = new List<IViewModelCommand<ViewModel>>();
 
 		static ViewModel()
 		{
 			foreach (var commandType in AppDomain.CurrentDomain.GetAssemblies().SelectMany(a => a.GetTypes())
-				.Where(type => typeof(IViewModelCommand).IsAssignableFrom(type) && !type.IsAbstract && type.BaseType != null && type.BaseType.IsGenericType && type.BaseType.GenericTypeArguments.Length == 1))
+				.Where(type => typeof(IViewModelCommand<ViewModel>).IsAssignableFrom(type) && !type.IsAbstract && type.BaseType != null && type.BaseType.IsGenericType && type.BaseType.GenericTypeArguments.Length == 1))
 			{
-				KnownCommands.Add((IViewModelCommand)Activator.CreateInstance(commandType)!);
+				KnownCommands.Add((IViewModelCommand<ViewModel>)Activator.CreateInstance(commandType)!);
 			}
 		}
 	}

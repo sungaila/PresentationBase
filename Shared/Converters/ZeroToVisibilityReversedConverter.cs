@@ -1,4 +1,3 @@
-#nullable enable
 using System;
 using System.Globalization;
 using System.Windows;
@@ -14,8 +13,12 @@ namespace PresentationBase.Converters
 	public class ZeroToVisibilityReversedConverter
 		: IValueConverter
 	{
+		/// <summary>
+		/// A static instance of this value converter.
+		/// </summary>
 		public static readonly ZeroToVisibilityReversedConverter Instance = new ZeroToVisibilityReversedConverter();
 
+		/// <inheritdoc/>
 		public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			if (!(value is int))
@@ -24,7 +27,8 @@ namespace PresentationBase.Converters
 			return (int)value == 0 ? Visibility.Collapsed : Visibility.Visible;
 		}
 
-		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+		/// <inheritdoc/>
+		public object? ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			throw new NotImplementedException();
 		}

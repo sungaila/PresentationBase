@@ -1,4 +1,3 @@
-#nullable enable
 using System;
 using System.Globalization;
 using System.Windows;
@@ -15,8 +14,12 @@ namespace PresentationBase.Converters
 	public class VisibilityToPanningModeConverter
 		: IValueConverter
 	{
+		/// <summary>
+		/// A static instance of this value converter.
+		/// </summary>
 		public static readonly VisibilityToPanningModeConverter Instance = new VisibilityToPanningModeConverter();
 
+		/// <inheritdoc/>
 		public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			if (!(value is Visibility))
@@ -32,7 +35,8 @@ namespace PresentationBase.Converters
 			return scrollBarVisibility == Visibility.Visible ? panningMode : PanningMode.None;
 		}
 
-		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+		/// <inheritdoc/>
+		public object? ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			throw new NotImplementedException();
 		}

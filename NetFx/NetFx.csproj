@@ -3,13 +3,12 @@
   <PropertyGroup>
     <TargetFrameworks>net45;net48</TargetFrameworks>
     <OutputType>Library</OutputType>
-    <RootNamespace>PresentationBase</RootNamespace>
     <AssemblyName>PresentationBase</AssemblyName>
+    <RootNamespace>PresentationBase</RootNamespace>
     <Version>2.1.0</Version>
     <AssemblyVersion>2.1.0</AssemblyVersion>
     <FileVersion>2.1.0</FileVersion>
     <Authors>David Sungaila</Authors>
-    <Company />
     <Description>A lightweight MVVM implementation for WPF (Windows Presentation Foundation) targeting both .NET Framework and .NET Core.</Description>
     <Copyright>MIT</Copyright>
     <PackageProjectUrl>https://github.com/sungaila/PresentationBase</PackageProjectUrl>
@@ -17,12 +16,17 @@
     <RepositoryType>git</RepositoryType>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <LangVersion>8.0</LangVersion>
-    <Nullable>enable</Nullable>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\Shared\PresentationBase.pfx</AssemblyOriginatorKeyFile>
-    <PackageTags></PackageTags>
   </PropertyGroup>
+
+  <PropertyGroup>
+    <LangVersion>8.0</LangVersion>
+    <Nullable>enable</Nullable>
+    <Features>strict</Features>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
@@ -30,16 +34,23 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <Optimize>true</Optimize>
     <OutputPath>..\NuGet\lib\</OutputPath>
+    <DocumentationFile>..\NuGet\lib\PresentationBase.xml</DocumentationFile>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net45|AnyCPU'">
+    <DocumentationFile>bin\Debug\PresentationBase.xml</DocumentationFile>
+  </PropertyGroup>
+  
   <Import Project="..\Shared\Shared.projitems" Label="Shared" />
+
   <ItemGroup>
-    <Reference Include="System" />
     <Reference Include="System.Xaml" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />

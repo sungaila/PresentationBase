@@ -1,4 +1,3 @@
-#nullable enable
 using System.Windows;
 using System.Windows.Controls;
 
@@ -32,11 +31,20 @@ namespace PresentationBase.Extensions
 			Window.GetWindow((Button)sender).DialogResult = GetDialogResult((Button)sender);
 		}
 
+		/// <summary>
+		/// Get the value of the attached property <see cref="DialogResultProperty"/> for a <see cref="Button"/>.
+		/// </summary>
+		/// <param name="button">The button.</param>
 		public static bool? GetDialogResult(Button button)
 		{
 			return (bool?)button.GetValue(DialogResultProperty);
 		}
 
+		/// <summary>
+		/// Set the value of the attached property <see cref="DialogResultProperty"/> for a <see cref="Button"/>.
+		/// </summary>
+		/// <param name="button">The button.</param>
+		/// <param name="value">The value to set.</param>
 		public static void SetDialogResult(Button button, bool? value)
 		{
 			button.SetValue(DialogResultProperty, value);
@@ -51,11 +59,20 @@ namespace PresentationBase.Extensions
 			typeof(ButtonExtensions),
 			new FrameworkPropertyMetadata(null));
 
+		/// <summary>
+		/// Get the value of the attached property <see cref="SegoeGlyphProperty"/> for a <see cref="Button"/>.
+		/// </summary>
+		/// <param name="button">The button.</param>
 		public static string GetSegoeGlyph(Button button)
 		{
 			return (string)button.GetValue(SegoeGlyphProperty);
 		}
 
+		/// <summary>
+		/// Set the value of the attached property <see cref="SegoeGlyphProperty"/> for a <see cref="Button"/>.
+		/// </summary>
+		/// <param name="button">The button.</param>
+		/// <param name="value">The value to set.</param>
 		public static void SetSegoeGlyph(Button button, string value)
 		{
 			button.SetValue(SegoeGlyphProperty, value);
@@ -71,11 +88,20 @@ namespace PresentationBase.Extensions
 			typeof(ButtonExtensions),
 			new FrameworkPropertyMetadata(32d));
 
+		/// <summary>
+		/// Get the value of the attached property <see cref="SegoeGlyphSizeProperty"/> for a <see cref="Button"/>.
+		/// </summary>
+		/// <param name="button">The button.</param>
 		public static double GetSegoeGlyphSize(Button button)
 		{
 			return (double)button.GetValue(SegoeGlyphSizeProperty);
 		}
 
+		/// <summary>
+		/// Set the value of the attached property <see cref="SegoeGlyphSizeProperty"/> for a <see cref="Button"/>.
+		/// </summary>
+		/// <param name="button">The button.</param>
+		/// <param name="value">The value to set.</param>
 		public static void SetSegoeGlyphSize(Button button, double value)
 		{
 			button.SetValue(SegoeGlyphSizeProperty, value);

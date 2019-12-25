@@ -1,4 +1,3 @@
-#nullable enable
 using System;
 using System.Globalization;
 using System.Windows;
@@ -14,8 +13,12 @@ namespace PresentationBase.Converters
 	public class BoolToProgressStateConverter
 		: IValueConverter
 	{
+		/// <summary>
+		/// A static instance of this value converter.
+		/// </summary>
 		public static readonly BoolToProgressStateConverter Instance = new BoolToProgressStateConverter();
 
+		/// <inheritdoc/>
 		public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			if (!(value is bool))
@@ -24,7 +27,8 @@ namespace PresentationBase.Converters
 			return (bool)value ? TaskbarItemProgressState.Indeterminate : TaskbarItemProgressState.None;
 		}
 
-		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+		/// <inheritdoc/>
+		public object? ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			if (!(value is TaskbarItemProgressState))
 				return DependencyProperty.UnsetValue;

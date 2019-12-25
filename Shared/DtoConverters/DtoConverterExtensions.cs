@@ -1,8 +1,10 @@
-#nullable enable
 using System;
 
 namespace PresentationBase.DtoConverters
 {
+	/// <summary>
+	/// Contains extension methods for converstion between view models and data transfer objects.
+	/// </summary>
 	public static class DtoConverterExtensions
 	{
 		/// <summary>
