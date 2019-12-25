@@ -118,6 +118,35 @@ The only reference needed is the `x:Type` in XAML. **Important:** Make sure to w
 </Window>
 ```
 
+### ... and async commands
+```csharp
+// C# code
+public class AlertCommandAsync : ViewModelCommandAsync<AwesomeViewModel>
+{
+    protected override async Task ExecutionAsync(AwesomeViewModel parameter)
+    {
+        await Task.Run(() =>
+        {
+            System.Threading.Thread.Sleep(2000);
+            System.Windows.MessageBox.Show("You clicked that button two seconds ago.");
+        });
+    }
+}
+```
+
+```xaml
+<!-- XAML -->
+<Window x:Class="WpfApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Core="clr-namespace:PresentationBase;assembly=PresentationBase"
+        xmlns:local="clr-namespace:WpfApp">
+        
+        <Button CommandParameter="{Binding}"
+                Command="{Core:CommandBinding {x:Type local:AlertCommandAsync}}" />
+</Window>
+```
+
 ### ValueConverters
 ```xaml
 <!-- XAML -->
