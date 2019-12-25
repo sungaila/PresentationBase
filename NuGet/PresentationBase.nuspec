@@ -9,6 +9,7 @@
     <license type="expression">MIT</license>
     <icon>Icon.png</icon>
     <projectUrl>https://github.com/sungaila/PresentationBase</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/sungaila/PresentationBase/master/NuGet/Icon.png</iconUrl>
     <description>A lightweight MVVM implementation for WPF (Windows Presentation Foundation) targeting both .NET Framework and .NET Core.</description>
     <releaseNotes>added strong names to assemblies</releaseNotes>
     <tags>WPF MVVM ViewModel Converter IValueConverter Command INotifyPropertyChanged INotifyDataErrorInfo ICommand XAML Markup DTO C#</tags>
@@ -16,12 +17,7 @@
     <dependencies>
       <group targetFramework="net45" />
       <group targetFramework="net48" />
-      <group targetFramework="netcoreapp3.0">
-        <dependency id="Microsoft.NETCore.App" version="3.0.0" />
-        <dependency id="Microsoft.WindowsDesktop.App.Ref" version="3.0.0" />
-      </group>
       <group targetFramework="netcoreapp3.1">
-        <dependency id="Microsoft.NETCore.App" version="3.1.0" />
         <dependency id="Microsoft.WindowsDesktop.App.Ref" version="3.1.0" />
       </group>
     </dependencies>
