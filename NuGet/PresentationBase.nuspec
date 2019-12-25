@@ -11,7 +11,7 @@
     <projectUrl>https://github.com/sungaila/PresentationBase</projectUrl>
     <iconUrl>https://raw.githubusercontent.com/sungaila/PresentationBase/master/NuGet/Icon.png</iconUrl>
     <description>A lightweight MVVM implementation for WPF (Windows Presentation Foundation) targeting both .NET Framework and .NET Core.</description>
-    <releaseNotes>added strong names to assemblies</releaseNotes>
+    <releaseNotes>Added support for async commands, view model wide validation errors and signed assemblies for strong names.</releaseNotes>
     <tags>WPF MVVM ViewModel Converter IValueConverter Command INotifyPropertyChanged INotifyDataErrorInfo ICommand XAML Markup DTO C#</tags>
     <repository type="git" url="https://github.com/sungaila/PresentationBase.git" branch="master" commit="d974d8df6928b1ee4d48f6d7a9d2c9b9fe023b75" />
     <dependencies>
