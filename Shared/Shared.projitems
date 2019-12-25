@@ -33,11 +33,14 @@
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\ButtonExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\NaturalSortExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\NaturalSortHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)HelperExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IViewModelCommandAsync.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IViewModelCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ObservableViewModelCollection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UiHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModelCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModelCommandAsync.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)PresentationBase.pfx" />

@@ -21,7 +21,7 @@ namespace PresentationBase
 		public ViewModel()
 		{
 			// add all matching commands found with reflection
-			AddCommands(KnownCommands.Where(cmd => cmd.GetType().BaseType!.GenericTypeArguments.First().IsAssignableFrom(GetType())).ToArray());
+			AddCommands(KnownCommands.Where(cmd => cmd.GetType().HasGenericTypeArgument(GetType())).ToArray());
 		}
 
 		/// <summary>
@@ -147,9 +147,9 @@ namespace PresentationBase
 		/// This ensures that <see cref="ICommand.CanExecute(object)"/> is called whenever a property was changed.
 		/// </summary>
 		/// <param name="commands">The commands to add.</param>
-		private void AddCommands(params IViewModelCommand<ViewModel>[] commands)
+		private void AddCommands(params IViewModelCommand[] commands)
 		{
-			foreach (IViewModelCommand<ViewModel> command in commands)
+			foreach (var command in commands)
 			{
 				if (command == null)
 					continue;
@@ -168,9 +168,9 @@ namespace PresentationBase
 		/// Removes existing commands for this view model.
 		/// </summary>
 		/// <param name="commands">The commands to remove.</param>
-		private void RemoveCommands(params IViewModelCommand<ViewModel>[] commands)
+		private void RemoveCommands(params IViewModelCommand[] commands)
 		{
-			foreach (IViewModelCommand<ViewModel> command in commands)
+			foreach (var command in commands)
 			{
 				if (command == null)
 					continue;
@@ -188,7 +188,7 @@ namespace PresentationBase
 		/// <summary>
 		/// A dictionary filled with commands for this view model. The key is the <see cref="Type"/> of the command.
 		/// </summary>
-		protected readonly Dictionary<Type, IViewModelCommand<ViewModel>> Commands = new Dictionary<Type, IViewModelCommand<ViewModel>>();
+		public Dictionary<Type, IViewModelCommand> Commands { get; private set; } = new Dictionary<Type, IViewModelCommand>();
 
 		/// <summary>
 		/// A multi purpose <see cref="object"/> tag for this view model.
@@ -376,14 +376,14 @@ namespace PresentationBase
 		/// <summary>
 		/// A list containing all known commands found with reflection.
 		/// </summary>
-		private static readonly List<IViewModelCommand<ViewModel>> KnownCommands = new List<IViewModelCommand<ViewModel>>();
+		private static readonly List<IViewModelCommand> KnownCommands = new List<IViewModelCommand>();
 
 		static ViewModel()
 		{
 			foreach (var commandType in AppDomain.CurrentDomain.GetAssemblies().SelectMany(a => a.GetTypes())
-				.Where(type => typeof(IViewModelCommand<ViewModel>).IsAssignableFrom(type) && !type.IsAbstract && type.BaseType != null && type.BaseType.IsGenericType && type.BaseType.GenericTypeArguments.Length == 1))
+				.Where(type => !type.IsAbstract && typeof(IViewModelCommand).IsAssignableFrom(type) && type.HasGenericTypeArgument(typeof(ViewModel))))
 			{
-				KnownCommands.Add((IViewModelCommand<ViewModel>)Activator.CreateInstance(commandType)!);
+				KnownCommands.Add((IViewModelCommand)Activator.CreateInstance(commandType)!);
 			}
 		}
 	}
