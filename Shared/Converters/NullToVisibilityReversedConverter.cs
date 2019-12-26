@@ -6,7 +6,7 @@ using System.Windows.Data;
 namespace PresentationBase.Converters
 {
 	/// <summary>
-	/// Compares a given converter value to <c>null</c>.
+	/// Compares a given converter value to <see langword="null"/>.
 	/// Returns <see cref="Visibility.Collapsed"/> when <c>true</c>. Otherwise <see cref="Visibility.Visible"/>.
 	/// </summary>
 	[ValueConversion(typeof(object), typeof(Visibility))]

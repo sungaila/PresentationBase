@@ -85,7 +85,7 @@ namespace PresentationBase
 			{
 				return _isWorking;
 			}
-			set
+			private set
 			{
 				_isWorking = value;
 				RaiseCanExecuteChanged();

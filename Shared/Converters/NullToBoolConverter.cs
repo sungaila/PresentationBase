@@ -5,7 +5,7 @@ using System.Windows.Data;
 namespace PresentationBase.Converters
 {
 	/// <summary>
-	/// Compares a given converter value to <c>null</c> and returns the result.
+	/// Compares a given converter value to <see langword="null"/> and returns the result.
 	/// </summary>
 	[ValueConversion(typeof(object), typeof(bool))]
 	public class NullToBoolConverter
