@@ -27,7 +27,7 @@ namespace PresentationBase
 		/// Any uncaught exceptions will be handled in <see cref="HandleUncaughtException"/>.
 		/// </summary>
 		/// <param name="parameter">The view model this command is executed on.</param>
-		public override async void Execute(TViewModel parameter)
+		public sealed override async void Execute(TViewModel parameter)
 		{
 			try
 			{
