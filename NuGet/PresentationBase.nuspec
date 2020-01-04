@@ -12,7 +12,7 @@
     <projectUrl>https://github.com/sungaila/PresentationBase</projectUrl>
     <iconUrl>https://raw.githubusercontent.com/sungaila/PresentationBase/master/NuGet/Icon.png</iconUrl>
     <description>A lightweight MVVM implementation for WPF (Windows Presentation Foundation) targeting both .NET Framework and .NET Core.</description>
-    <releaseNotes>Value converters can be used as MarkupExtensions now.</releaseNotes>
+    <releaseNotes>ValueConverters can be used as MarkupExtensions now.</releaseNotes>
     <tags>WPF MVVM ViewModel Converter IValueConverter Command INotifyPropertyChanged INotifyDataErrorInfo ICommand XAML Markup DTO C#</tags>
     <repository type="git" url="https://github.com/sungaila/PresentationBase.git" branch="master" commit="fb82a372f8d913fefd5f82fa1986619b99095236" />
     <dependencies>
