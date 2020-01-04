@@ -2,6 +2,7 @@ using System;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
+using System.Windows.Markup;
 
 namespace PresentationBase.Converters
 {
@@ -10,8 +11,9 @@ namespace PresentationBase.Converters
 	/// Otherwise <see cref="Visibility.Collapsed"/>.
 	/// </summary>
 	[ValueConversion(typeof(int), typeof(Visibility))]
+	[MarkupExtensionReturnType(typeof(ZeroToVisibilityConverter))]
 	public class ZeroToVisibilityConverter
-		: IValueConverter
+		: MarkupExtension, IValueConverter
 	{
 		/// <summary>
 		/// A static instance of this value converter.
@@ -31,6 +33,12 @@ namespace PresentationBase.Converters
 		public object? ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			throw new NotImplementedException();
+		}
+
+		/// <inheritdoc/>
+		public override object ProvideValue(IServiceProvider serviceProvider)
+		{
+			return Instance;
 		}
 	}
 }

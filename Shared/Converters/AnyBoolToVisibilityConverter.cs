@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Data;
+using System.Windows.Markup;
 
 namespace PresentationBase.Converters
 {
@@ -11,8 +12,9 @@ namespace PresentationBase.Converters
 	/// Returns <see cref="Visibility.Visible"/> when <strong>any</strong> bool is true. Otherwise <see cref="Visibility.Collapsed"/>.
 	/// </summary>
 	[ValueConversion(typeof(bool), typeof(Visibility))]
+	[MarkupExtensionReturnType(typeof(AnyBoolToVisibilityConverter))]
 	public class AnyBoolToVisibilityConverter
-		: IMultiValueConverter
+		: MarkupExtension, IMultiValueConverter
 	{
 		/// <summary>
 		/// A static instance of this value converter.
@@ -32,6 +34,12 @@ namespace PresentationBase.Converters
 		public object[]? ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
 		{
 			throw new NotImplementedException();
+		}
+
+		/// <inheritdoc/>
+		public override object ProvideValue(IServiceProvider serviceProvider)
+		{
+			return Instance;
 		}
 	}
 }

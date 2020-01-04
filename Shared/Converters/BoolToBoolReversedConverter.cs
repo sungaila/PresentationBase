@@ -2,6 +2,7 @@ using System;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
+using System.Windows.Markup;
 
 namespace PresentationBase.Converters
 {
@@ -9,8 +10,9 @@ namespace PresentationBase.Converters
 	/// Negates a given <see cref="bool"/>.
 	/// </summary>
 	[ValueConversion(typeof(bool), typeof(bool))]
+	[MarkupExtensionReturnType(typeof(BoolToBoolReversedConverter))]
 	public class BoolToBoolReversedConverter
-		: IValueConverter
+		: MarkupExtension, IValueConverter
 	{
 		/// <summary>
 		/// A static instance of this value converter.
@@ -33,6 +35,12 @@ namespace PresentationBase.Converters
 				return DependencyProperty.UnsetValue;
 
 			return !(bool)value;
+		}
+
+		/// <inheritdoc/>
+		public override object ProvideValue(IServiceProvider serviceProvider)
+		{
+			return Instance;
 		}
 	}
 }

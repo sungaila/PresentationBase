@@ -1,6 +1,7 @@
 using System;
 using System.Globalization;
 using System.Windows.Data;
+using System.Windows.Markup;
 
 namespace PresentationBase.Converters
 {
@@ -8,8 +9,9 @@ namespace PresentationBase.Converters
 	/// Compares a given converter value to <see langword="null"/> and returns the <strong>negated</strong> result.
 	/// </summary>
 	[ValueConversion(typeof(object), typeof(bool))]
+	[MarkupExtensionReturnType(typeof(NullToBoolReversedConverter))]
 	public class NullToBoolReversedConverter
-		: IValueConverter
+		: MarkupExtension, IValueConverter
 	{
 		/// <summary>
 		/// A static instance of this value converter.
@@ -26,6 +28,12 @@ namespace PresentationBase.Converters
 		public object? ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			throw new NotImplementedException();
+		}
+
+		/// <inheritdoc/>
+		public override object ProvideValue(IServiceProvider serviceProvider)
+		{
+			return Instance;
 		}
 	}
 }

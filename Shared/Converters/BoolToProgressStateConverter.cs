@@ -2,6 +2,7 @@ using System;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
+using System.Windows.Markup;
 using System.Windows.Shell;
 
 namespace PresentationBase.Converters
@@ -10,8 +11,9 @@ namespace PresentationBase.Converters
 	/// Returns <see cref="TaskbarItemProgressState.Indeterminate"/> when converting <c>true</c>. Otherwise <see cref="TaskbarItemProgressState.None"/>.
 	/// </summary>
 	[ValueConversion(typeof(bool), typeof(TaskbarItemProgressState))]
+	[MarkupExtensionReturnType(typeof(BoolToProgressStateConverter))]
 	public class BoolToProgressStateConverter
-		: IValueConverter
+		: MarkupExtension, IValueConverter
 	{
 		/// <summary>
 		/// A static instance of this value converter.
@@ -34,6 +36,12 @@ namespace PresentationBase.Converters
 				return DependencyProperty.UnsetValue;
 
 			return (TaskbarItemProgressState)value == TaskbarItemProgressState.Indeterminate ? true : false;
+		}
+
+		/// <inheritdoc/>
+		public override object ProvideValue(IServiceProvider serviceProvider)
+		{
+			return Instance;
 		}
 	}
 }

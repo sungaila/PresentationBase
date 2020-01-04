@@ -2,6 +2,7 @@ using System;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
+using System.Windows.Markup;
 
 namespace PresentationBase.Converters
 {
@@ -10,8 +11,9 @@ namespace PresentationBase.Converters
 	/// Returns <see cref="Visibility.Collapsed"/> when <c>true</c>. Otherwise <see cref="Visibility.Visible"/>.
 	/// </summary>
 	[ValueConversion(typeof(object), typeof(Visibility))]
+	[MarkupExtensionReturnType(typeof(NullToVisibilityReversedConverter))]
 	public class NullToVisibilityReversedConverter
-		: IValueConverter
+		: MarkupExtension, IValueConverter
 	{
 		/// <summary>
 		/// A static instance of this value converter.
@@ -28,6 +30,12 @@ namespace PresentationBase.Converters
 		public object? ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			throw new NotImplementedException();
+		}
+
+		/// <inheritdoc/>
+		public override object ProvideValue(IServiceProvider serviceProvider)
+		{
+			return Instance;
 		}
 	}
 }

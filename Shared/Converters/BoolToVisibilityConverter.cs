@@ -2,6 +2,7 @@ using System;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
+using System.Windows.Markup;
 
 namespace PresentationBase.Converters
 {
@@ -9,8 +10,9 @@ namespace PresentationBase.Converters
 	/// Returns <see cref="Visibility.Visible"/> when converting <c>true</c>. Otherwise <see cref="Visibility.Collapsed"/>.
 	/// </summary>
 	[ValueConversion(typeof(bool), typeof(Visibility))]
+	[MarkupExtensionReturnType(typeof(BoolToVisibilityConverter))]
 	public class BoolToVisibilityConverter
-		: IValueConverter
+		: MarkupExtension, IValueConverter
 	{
 		/// <summary>
 		/// A static instance of this value converter.
@@ -33,6 +35,12 @@ namespace PresentationBase.Converters
 				return DependencyProperty.UnsetValue;
 
 			return (Visibility)value == Visibility.Visible ? true : false;
+		}
+
+		/// <inheritdoc/>
+		public override object ProvideValue(IServiceProvider serviceProvider)
+		{
+			return Instance;
 		}
 	}
 }
