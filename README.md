@@ -156,7 +156,7 @@ public class AlertCommandAsync : ViewModelCommandAsync<AwesomeViewModel>
         xmlns:Converters="clr-namespace:PresentationBase.Converters;assembly=PresentationBase"
         xmlns:local="clr-namespace:WpfApp">
         
-        <TextBox Visibility="{Binding Name, Converter={x:Static Converters:NullToVisibilityConverter.Instance}}" />
+        <TextBox Visibility="{Binding Name, Converter={Converters:NullToVisibilityConverter}}" />
 </Window>
 ```
 

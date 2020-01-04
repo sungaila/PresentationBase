@@ -15,6 +15,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuGet", "NuGet", "{FEC1B1DF
 		NuGet\PresentationBase.nuspec = NuGet\PresentationBase.nuspec
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BA209F08-E6AA-4928-A9DD-1DCAFB4DF1CB}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Shared\Shared.projitems*{915e2663-a456-462b-900c-980b45e08021}*SharedItemsImports = 4
@@ -36,6 +41,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{FEC1B1DF-BFF6-449C-8D49-F99F716DB9B0} = {BA209F08-E6AA-4928-A9DD-1DCAFB4DF1CB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D9C25DED-CAFF-4856-B5D2-D41466F074A0}
