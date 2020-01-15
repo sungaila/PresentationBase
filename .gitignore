@@ -350,7 +350,3 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
-
-# PresentationBase specific ignores
-NuGet/lib/
-NuGetSymbols/lib/
