@@ -12,7 +12,7 @@
 
   <!-- NuGet -->
   <PropertyGroup>
-    <Version>2.2.1</Version>
+    <Version>2.3.0</Version>
     <Authors>David Sungaila</Authors>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -20,7 +20,7 @@
     <PackageProjectUrl>https://github.com/sungaila/PresentationBase</PackageProjectUrl>
     <PackageIconUrl>https://raw.githubusercontent.com/sungaila/PresentationBase/master/NuGet/Icon.png</PackageIconUrl>
     <Description>A lightweight MVVM implementation for WPF (Windows Presentation Foundation) targeting both .NET Framework and .NET Core.</Description>
-    <PackageReleaseNotes>Debugging improvements: SourceLink support and sources embedded into symbol files.</PackageReleaseNotes>
+    <PackageReleaseNotes>Added CompositeViewModelCollection for composition of (strongly typed) view model collections</PackageReleaseNotes>
     <PackageTags>WPF MVVM ViewModel Converter IValueConverter Command INotifyPropertyChanged INotifyDataErrorInfo ICommand XAML Markup DTO C#</PackageTags>
     <RepositoryUrl>https://github.com/sungaila/PresentationBase.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>

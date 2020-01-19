@@ -12,9 +12,9 @@ namespace PresentationBase
     /// <summary>
     /// An <see cref="ObservableCollection{T}"/> for view models.
     /// It ensures that the <see cref="ViewModel.ParentViewModel"/> property is correctly set when working on collections.
-    /// Also adds methods for collection manipulation which are dispatched to the current application.
+    /// Also adds methods for collection manipulation which are dispatched to <see cref="Application.Current"/>.
     /// </summary>
-    /// <typeparam name="TViewModel"></typeparam>
+    /// <typeparam name="TViewModel">The view model type of this collection.</typeparam>
     public class ObservableViewModelCollection<TViewModel>
         : ObservableCollection<TViewModel>
         where TViewModel : ViewModel
