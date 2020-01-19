@@ -58,7 +58,7 @@ public class AwesomeViewModel : ViewModel
 <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
 ```
 
-### ... and ViewModel collections
+### ViewModel collections
 ```csharp
 // C# code
 public class AwesomeViewModel : ViewModel
@@ -79,6 +79,47 @@ public class AwesomeViewModel : ViewModel
 ```xaml
 <!-- XAML -->
 <ListView ItemsSource="{Binding Children}">
+    <ListView.ItemTemplate>
+        <DataTemplate>
+            <TextBlock Text="{Binding Nickname}" />
+        </DataTemplate>
+    </ListView.ItemTemplate>
+</ListView>
+```
+
+### ... and collection compositions
+```csharp
+// C# code
+public class AwesomeViewModel : ViewModel
+{
+    public ObservableViewModelCollection<ChildViewModel> Children { get; }
+
+    public ObservableViewModelCollection<PersonViewModel> People { get; }
+
+    public CompositeViewModelCollection<ViewModel> Composition { get; }
+    
+    public AwesomeViewModel()
+    {
+        Children = new ObservableViewModelCollection<ChildViewModel>(this);
+        Children.Add(new ChildViewModel { Nickname = "Blinky" });
+        Children.Add(new ChildViewModel { Nickname = "Pinky" });
+        Children.Add(new ChildViewModel { Nickname = "Inky" });
+        Children.Add(new ChildViewModel { Nickname = "Clyde" });
+
+        People = new ObservableViewModelCollection<PersonViewModel>(this);
+        People.Add(new PersonViewModel { Nickname = "Kevin" });
+        People.Add(new PersonViewModel { Nickname = "Tommy" });
+
+        Composition = new CompositeViewModelCollection<ViewModel>();
+        Composition.Add(Children);
+        Composition.Add(People);
+    }
+}
+```
+
+```xaml
+<!-- XAML -->
+<ListView ItemsSource="{Binding Composition}">
     <ListView.ItemTemplate>
         <DataTemplate>
             <TextBlock Text="{Binding Nickname}" />
