@@ -380,10 +380,50 @@ namespace PresentationBase
 
 		static ViewModel()
 		{
-			foreach (var commandType in AppDomain.CurrentDomain.GetAssemblies().SelectMany(a => a.GetTypes())
-				.Where(type => !type.IsAbstract && typeof(IViewModelCommand).IsAssignableFrom(type) && type.HasGenericTypeArgument(typeof(ViewModel))))
+			ReInitializeCommands();
+		}
+
+		/// <summary>
+		/// Reinitializes the <see cref="KnownCommands"/> list for command and view model interaction.
+		/// </summary>
+		public static void ReInitializeCommands()
+		{
+			ReInitializeCommands(
+				AppDomain.CurrentDomain
+					.GetAssemblies()
+					.SelectMany(a => a.GetTypes())
+					.Where(type => !type.IsAbstract && typeof(IViewModelCommand).IsAssignableFrom(type) && type.HasGenericTypeArgument(typeof(ViewModel)))
+					);
+		}
+
+		/// <summary>
+		/// Tries to instantiate the given types and adds them to <see cref="KnownCommands"/>.
+		/// The <see cref="KnownCommands"/> list will be cleared first.
+		/// </summary>
+		/// <param name="commandTypes">The command types to instantiate and add.</param>
+		private static void ReInitializeCommands(IEnumerable<Type> commandTypes)
+		{
+			KnownCommands.Clear();
+
+			foreach (var commandType in commandTypes)
 			{
-				KnownCommands.Add((IViewModelCommand)Activator.CreateInstance(commandType)!);
+				if (commandType.IsAbstract)
+					throw new ArgumentException($"{commandType.FullName} cannot be abstract.", nameof(commandTypes));
+
+				if (!typeof(IViewModelCommand).IsAssignableFrom(commandType))
+					throw new ArgumentException($"{commandType.FullName} must implement {nameof(IViewModelCommand)}.", nameof(commandTypes));
+
+				if (!commandType.HasGenericTypeArgument(typeof(ViewModel)))
+					throw new ArgumentException($"{commandType.FullName} must have {nameof(ViewModel)} as its only generic type argument.", nameof(commandTypes));
+
+				try
+				{
+					KnownCommands.Add((IViewModelCommand)Activator.CreateInstance(commandType)!);
+				}
+				catch (Exception ex)
+				{
+					Debug.Fail($"Failed to add the command {commandType.FullName}: {ex}");
+				}
 			}
 		}
 	}

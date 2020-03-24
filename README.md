@@ -129,7 +129,7 @@ public class AwesomeViewModel : ViewModel
 ```
 
 ### Commands
-Your command can be defined anywhere you want (as long as its assembly is referenced by the WPF application).
+Your command can be defined anywhere you want (as long as its assembly is referenced by the WPF application). Please note that a parameterless constructor (or none at all) is needed.
 ```csharp
 // C# code
 public class AlertCommand : ViewModelCommand<AwesomeViewModel>
