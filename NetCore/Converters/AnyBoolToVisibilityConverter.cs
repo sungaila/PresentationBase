@@ -14,32 +14,15 @@ namespace PresentationBase.Converters
 	[ValueConversion(typeof(bool), typeof(Visibility))]
 	[MarkupExtensionReturnType(typeof(AnyBoolToVisibilityConverter))]
 	public class AnyBoolToVisibilityConverter
-		: MarkupExtension, IMultiValueConverter
+		: MultiConverterBase
 	{
-		/// <summary>
-		/// A static instance of this value converter.
-		/// </summary>
-		public static readonly AnyBoolToVisibilityConverter Instance = new AnyBoolToVisibilityConverter();
-
 		/// <inheritdoc/>
-		public object? Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+		public override object? Convert(object[]? values, Type? targetType, object? parameter, CultureInfo? culture)
 		{
-			if (values.Any(v => !(v is bool)))
+			if (values == null || values.Any(v => !(v is bool)))
 				return DependencyProperty.UnsetValue;
 
 			return values.Cast<bool>().Any(b => b) ? Visibility.Visible : Visibility.Collapsed;
-		}
-
-		/// <inheritdoc/>
-		public object[]? ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
-		{
-			throw new NotImplementedException();
-		}
-
-		/// <inheritdoc/>
-		public override object ProvideValue(IServiceProvider serviceProvider)
-		{
-			return Instance;
 		}
 	}
 }

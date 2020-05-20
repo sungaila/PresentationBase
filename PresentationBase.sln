@@ -7,6 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCore", "NetCore\NetCore.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BA209F08-E6AA-4928-A9DD-1DCAFB4DF1CB}"
 	ProjectSection(SolutionItems) = preProject
+		Icon.png = Icon.png
 		README.md = README.md
 	EndProjectSection
 EndProject
@@ -14,6 +15,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuGet", "NuGet", "{009BF7C6
 	ProjectSection(SolutionItems) = preProject
 		NuGet\Icon.png = NuGet\Icon.png
 	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCore.Tests", "NetCore.Tests\NetCore.Tests.csproj", "{D6F9906D-FC9C-4F6E-83FB-5361B38F3ECE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,6 +28,10 @@ Global
 		{2CB41A20-0315-49C9-8E76-C94BCF3C7442}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2CB41A20-0315-49C9-8E76-C94BCF3C7442}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2CB41A20-0315-49C9-8E76-C94BCF3C7442}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6F9906D-FC9C-4F6E-83FB-5361B38F3ECE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6F9906D-FC9C-4F6E-83FB-5361B38F3ECE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6F9906D-FC9C-4F6E-83FB-5361B38F3ECE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6F9906D-FC9C-4F6E-83FB-5361B38F3ECE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -12,15 +12,10 @@ namespace PresentationBase.Converters
 	[ValueConversion(typeof(bool), typeof(bool))]
 	[MarkupExtensionReturnType(typeof(BoolToBoolReversedConverter))]
 	public class BoolToBoolReversedConverter
-		: MarkupExtension, IValueConverter
+		: ConverterBase
 	{
-		/// <summary>
-		/// A static instance of this value converter.
-		/// </summary>
-		public static readonly BoolToBoolReversedConverter Instance = new BoolToBoolReversedConverter();
-
 		/// <inheritdoc/>
-		public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
+		public override object? Convert(object? value, Type? targetType, object? parameter, CultureInfo? culture)
 		{
 			if (!(value is bool))
 				return DependencyProperty.UnsetValue;
@@ -29,18 +24,12 @@ namespace PresentationBase.Converters
 		}
 
 		/// <inheritdoc/>
-		public object? ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+		public override object? ConvertBack(object? value, Type? targetType, object? parameter, CultureInfo? culture)
 		{
 			if (!(value is bool))
 				return DependencyProperty.UnsetValue;
 
 			return !(bool)value;
-		}
-
-		/// <inheritdoc/>
-		public override object ProvideValue(IServiceProvider serviceProvider)
-		{
-			return Instance;
 		}
 	}
 }

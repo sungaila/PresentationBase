@@ -12,7 +12,7 @@
 
   <!-- NuGet -->
   <PropertyGroup>
-    <Version>2.3.1</Version>
+    <Version>3.0.0</Version>
     <Authors>David Sungaila</Authors>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -20,7 +20,7 @@
     <PackageProjectUrl>https://github.com/sungaila/PresentationBase</PackageProjectUrl>
     <PackageIconUrl>https://raw.githubusercontent.com/sungaila/PresentationBase/master/NuGet/Icon.png</PackageIconUrl>
     <Description>A lightweight MVVM implementation for WPF (Windows Presentation Foundation) targeting both .NET Framework and .NET Core.</Description>
-    <PackageReleaseNotes>Fixed an issue with instantiation of view model commands. Added a method to reinitialize view model commands (if needed).</PackageReleaseNotes>
+    <PackageReleaseNotes>Split into a WPF specific package (PresentationBase) and an independent MVVM package (PresentationBase.Core).</PackageReleaseNotes>
     <PackageTags>WPF MVVM ViewModel Converter IValueConverter Command INotifyPropertyChanged INotifyDataErrorInfo ICommand XAML Markup DTO C#</PackageTags>
     <RepositoryUrl>https://github.com/sungaila/PresentationBase.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
@@ -45,12 +45,12 @@
 
   <!-- NuGet Icon -->
   <ItemGroup>
-    <None Include="..\Icon.png">
+    <None Include="..\NuGet\Icon.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
   </ItemGroup>
-
+  
   <!-- Framework references -->
   <ItemGroup Condition="'$(TargetFramework)'=='net45' or '$(TargetFramework)'=='net48'">
     <Reference Include="System.Xaml" />
@@ -59,8 +59,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
 
-  <!-- SourceLink build steps -->
+  <!-- SourceLink build steps and PresentationBase.Core -->
   <ItemGroup>
+    <PackageReference Include="PresentationBase.Core" Version="3.0.0" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

@@ -7,6 +7,8 @@ It contains base implementations for *view models* (and their *commands*), frequ
 
 A sample project can be found here: [SUBSTitute](https://github.com/sungaila/SUBSTitute). Feel free to grab it from [NuGet.org](https://www.nuget.org/packages/PresentationBase) or to fork it for your own needs!
 
+The independent MVVM package can be found here: [<img src="https://raw.githubusercontent.com/sungaila/PresentationBase.Core/master/Icon.png" align="center" width="16" height="16" alt="PresentationBase Logo"> PresentationBase.Core](https://www.nuget.org/packages/PresentationBase.Core).
+
 ## Examples
 Here are some examples for using PresentationBase in your project.
 

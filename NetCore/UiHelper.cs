@@ -14,7 +14,7 @@ namespace PresentationBase
 		/// <typeparam name="T">The type of the child to find</typeparam>
 		/// <param name="parent">The parent containing the child.</param>
 		/// <param name="childName">The <see cref="FrameworkElement.Name"/> of the child to find.</param>
-		public static T? TryFindChild<T>(this DependencyObject parent, string childName)
+		public static T? TryFindChild<T>(this DependencyObject parent, string? childName = null)
 			where T : DependencyObject
 		{
 			if (parent == null)
@@ -26,7 +26,7 @@ namespace PresentationBase
 			for (int i = 0; i < childrenCount; i++)
 			{
 				var child = VisualTreeHelper.GetChild(parent, i);
-				if (!(child is T))
+				if (!(child is T t))
 				{
 					foundChild = TryFindChild<T>(child, childName);
 
@@ -37,13 +37,13 @@ namespace PresentationBase
 				{
 					if (child is FrameworkElement frameworkElement && frameworkElement.Name == childName)
 					{
-						foundChild = (T)child;
+						foundChild = t;
 						break;
 					}
 				}
 				else
 				{
-					foundChild = (T)child;
+					foundChild = t;
 					break;
 				}
 			}

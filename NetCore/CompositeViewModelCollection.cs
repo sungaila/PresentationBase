@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -30,7 +31,7 @@ namespace PresentationBase
         /// </summary>
         /// <param name="capacity">The number of collections that the new list is initially capable of storing.</param>
         public CompositeViewModelCollection(int capacity) : base(capacity) { }
-        
+
         /// <inheritdoc/>
         public IEnumerator<IEnumerable<TViewModel>> GetEnumerator()
         {
@@ -48,19 +49,19 @@ namespace PresentationBase
             {
                 IEnumerable<TViewModel>? result = null;
 
-                Application.Current.Dispatcher.Invoke(() =>
+                Dispatcher.Dispatch(() =>
                 {
                     result = (IEnumerable<TViewModel>)((CollectionContainer)base[collectionIndex]).Collection;
-                }, DispatcherPriority.Send);
+                });
 
                 return result!;
             }
             set
             {
-                Application.Current.Dispatcher.Invoke(() =>
+                Dispatcher.Dispatch(() =>
                 {
                     base[collectionIndex] = new CollectionContainer { Collection = value };
-                }, DispatcherPriority.Send);
+                });
             }
         }
 
@@ -76,10 +77,10 @@ namespace PresentationBase
 
             int result = 0;
 
-            Application.Current.Dispatcher.Invoke(() =>
+            Dispatcher.Dispatch(() =>
             {
                 result = base.Add(new CollectionContainer { Collection = collection });
-            }, DispatcherPriority.Send);
+            });
 
             return result;
         }
@@ -89,7 +90,7 @@ namespace PresentationBase
         /// </summary>
         new public void Clear()
         {
-            Application.Current.Dispatcher.Invoke(() => base.Clear(), DispatcherPriority.Send);
+            Dispatcher.Dispatch(() => base.Clear());
         }
 
         /// <summary>
@@ -104,7 +105,7 @@ namespace PresentationBase
 
             bool result = false;
 
-            Application.Current.Dispatcher.Invoke(() =>
+            Dispatcher.Dispatch(() =>
             {
                 foreach (var existingCollection in this)
                 {
@@ -114,7 +115,7 @@ namespace PresentationBase
                         break;
                     }
                 }
-            }, DispatcherPriority.Send);
+            });
 
             return result;
         }
@@ -131,7 +132,7 @@ namespace PresentationBase
 
             int result = 0;
 
-            Application.Current.Dispatcher.Invoke(() =>
+            Dispatcher.Dispatch(() =>
             {
                 for (int i = 0; i < Count; i++)
                 {
@@ -141,7 +142,7 @@ namespace PresentationBase
                         break;
                     }
                 }
-            }, DispatcherPriority.Send);
+            });
 
             return result;
         }
@@ -157,7 +158,7 @@ namespace PresentationBase
             if (insertCollection == null)
                 throw new ArgumentNullException(nameof(insertCollection));
 
-            Application.Current.Dispatcher.Invoke(() => base.Insert(insertIndex, new CollectionContainer { Collection = insertCollection }), DispatcherPriority.Send);
+            Dispatcher.Dispatch(() => base.Insert(insertIndex, new CollectionContainer { Collection = insertCollection }));
         }
 
         /// <summary>
@@ -170,7 +171,7 @@ namespace PresentationBase
             if (removeCollection == null)
                 throw new ArgumentNullException(nameof(removeCollection));
 
-            Application.Current.Dispatcher.Invoke(() =>
+            Dispatcher.Dispatch(() =>
             {
                 for (int i = 0; i < Count; i++)
                 {
@@ -180,7 +181,7 @@ namespace PresentationBase
                         break;
                     }
                 }
-            }, DispatcherPriority.Send);
+            });
         }
 
         /// <summary>
@@ -190,7 +191,7 @@ namespace PresentationBase
         /// <param name="removeIndex">The index at which to remove a collection.</param>
         new public void RemoveAt(int removeIndex)
         {
-            Application.Current.Dispatcher.Invoke(() => base.RemoveAt(removeIndex), DispatcherPriority.Send);
+            Dispatcher.Dispatch(() => base.RemoveAt(removeIndex));
         }
 
         #region Overshadowed members

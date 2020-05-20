@@ -13,29 +13,12 @@ namespace PresentationBase.Converters
 	[ValueConversion(typeof(object), typeof(Visibility))]
 	[MarkupExtensionReturnType(typeof(NullToVisibilityConverter))]
 	public class NullToVisibilityConverter
-		: MarkupExtension, IValueConverter
+		: ConverterBase
 	{
-		/// <summary>
-		/// A static instance of this value converter.
-		/// </summary>
-		public static readonly NullToVisibilityConverter Instance = new NullToVisibilityConverter();
-
 		/// <inheritdoc/>
-		public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
+		public override object? Convert(object? value, Type? targetType, object? parameter, CultureInfo? culture)
 		{
 			return value == null ? Visibility.Visible : Visibility.Collapsed;
-		}
-
-		/// <inheritdoc/>
-		public object? ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-		{
-			throw new NotImplementedException();
-		}
-
-		/// <inheritdoc/>
-		public override object ProvideValue(IServiceProvider serviceProvider)
-		{
-			return Instance;
 		}
 	}
 }

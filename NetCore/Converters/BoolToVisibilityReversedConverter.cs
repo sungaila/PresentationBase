@@ -12,15 +12,10 @@ namespace PresentationBase.Converters
 	[ValueConversion(typeof(bool), typeof(Visibility))]
 	[MarkupExtensionReturnType(typeof(BoolToVisibilityReversedConverter))]
 	public class BoolToVisibilityReversedConverter
-		: MarkupExtension, IValueConverter
+		: ConverterBase
 	{
-		/// <summary>
-		/// A static instance of this value converter.
-		/// </summary>
-		public static readonly BoolToVisibilityReversedConverter Instance = new BoolToVisibilityReversedConverter();
-
 		/// <inheritdoc/>
-		public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
+		public override object? Convert(object? value, Type? targetType, object? parameter, CultureInfo? culture)
 		{
 			if (!(value is bool))
 				return DependencyProperty.UnsetValue;
@@ -29,18 +24,12 @@ namespace PresentationBase.Converters
 		}
 
 		/// <inheritdoc/>
-		public object? ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+		public override object? ConvertBack(object? value, Type? targetType, object? parameter, CultureInfo? culture)
 		{
 			if (!(value is Visibility))
 				return DependencyProperty.UnsetValue;
 
-			return (Visibility)value == Visibility.Visible ? false : true;
-		}
-
-		/// <inheritdoc/>
-		public override object ProvideValue(IServiceProvider serviceProvider)
-		{
-			return Instance;
+			return (Visibility)value != Visibility.Visible;
 		}
 	}
 }

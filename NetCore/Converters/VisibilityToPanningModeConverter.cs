@@ -14,15 +14,10 @@ namespace PresentationBase.Converters
 	[ValueConversion(typeof(Visibility), typeof(PanningMode), ParameterType = typeof(PanningMode))]
 	[MarkupExtensionReturnType(typeof(VisibilityToPanningModeConverter))]
 	public class VisibilityToPanningModeConverter
-		: MarkupExtension, IValueConverter
+		: ConverterBase
 	{
-		/// <summary>
-		/// A static instance of this value converter.
-		/// </summary>
-		public static readonly VisibilityToPanningModeConverter Instance = new VisibilityToPanningModeConverter();
-
 		/// <inheritdoc/>
-		public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
+		public override object? Convert(object? value, Type? targetType, object? parameter, CultureInfo? culture)
 		{
 			if (!(value is Visibility))
 				return DependencyProperty.UnsetValue;
@@ -35,18 +30,6 @@ namespace PresentationBase.Converters
 			var panningMode = (PanningMode)parameter;
 
 			return scrollBarVisibility == Visibility.Visible ? panningMode : PanningMode.None;
-		}
-
-		/// <inheritdoc/>
-		public object? ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-		{
-			throw new NotImplementedException();
-		}
-
-		/// <inheritdoc/>
-		public override object ProvideValue(IServiceProvider serviceProvider)
-		{
-			return Instance;
 		}
 	}
 }

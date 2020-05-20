@@ -13,15 +13,10 @@ namespace PresentationBase.Converters
 	[ValueConversion(typeof(bool), typeof(Visibility), ParameterType = typeof(object))]
 	[MarkupExtensionReturnType(typeof(EqualsToVisibilityConverter))]
 	public class EqualsToVisibilityConverter
-		: MarkupExtension, IValueConverter
+		: ConverterBase
 	{
-		/// <summary>
-		/// A static instance of this value converter.
-		/// </summary>
-		public static readonly EqualsToVisibilityConverter Instance = new EqualsToVisibilityConverter();
-
 		/// <inheritdoc/>
-		public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
+		public override object? Convert(object? value, Type? targetType, object? parameter, CultureInfo? culture)
 		{
 			if (value == null && parameter == null)
 				return Visibility.Visible;
@@ -29,19 +24,7 @@ namespace PresentationBase.Converters
 			if (value != null)
 				return value.Equals(parameter) ? Visibility.Visible : Visibility.Collapsed;
 
-			return parameter.Equals(value) ? Visibility.Visible : Visibility.Collapsed;
-		}
-
-		/// <inheritdoc/>
-		public object? ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-		{
-			throw new NotImplementedException();
-		}
-
-		/// <inheritdoc/>
-		public override object ProvideValue(IServiceProvider serviceProvider)
-		{
-			return Instance;
+			return parameter == null ? Visibility.Visible : Visibility.Collapsed;
 		}
 	}
 }
