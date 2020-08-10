@@ -7,6 +7,7 @@ namespace PresentationBase.Tests
     public class UiHelperTests : WpfTestsBase
     {
         [TestMethod]
+        [DoNotParallelize]
         public void TryFindChild()
         {
             App!.Dispatcher.Invoke(() =>

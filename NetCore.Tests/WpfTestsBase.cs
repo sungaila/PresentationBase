@@ -4,21 +4,25 @@ using System.Windows;
 
 namespace PresentationBase.Tests
 {
-    public abstract class WpfTestsBase
+    [TestClass]
+    public class WpfTestsBase
     {
-        protected Application? App { get; private set; }
+        protected static Application? App => Application.Current;
 
-        private Thread? AppThread { get; set; }
+        private static Thread? AppThread { get; set; }
 
         [TestInitialize]
         public void Initialize()
         {
+            if (App != null)
+                return;
+
             bool appStarted = false;
 
             AppThread = new Thread(() =>
             {
-                App = new Application();
-                App.Startup += (s, e) => appStarted = true;
+                new Application();
+                App!.Startup += (s, e) => appStarted = true;
                 App.Run();
             });
             AppThread.SetApartmentState(ApartmentState.STA);
@@ -42,17 +46,14 @@ namespace PresentationBase.Tests
         [TestCleanup]
         public void Cleanup()
         {
-            if (App != null)
-            {
-                App.Dispatcher.Invoke(() => App.Shutdown());
-                App = null;
-            }
+            Application.Current.Dispatcher.Invoke(() => Application.Current?.MainWindow?.Close());
+        }
 
-            if (AppThread != null)
-            {
-                AppThread.Join();
-                AppThread = null;
-            }
+        [AssemblyCleanup]
+        public static void Shutdown()
+        {
+            App?.Dispatcher.Invoke(() => App.Shutdown());
+            AppThread?.Join();
         }
     }
 }

@@ -9,6 +9,7 @@ namespace PresentationBase.Tests
     public class ButtonExtensionsTests : WpfTestsBase
     {
         [TestMethod]
+        [DoNotParallelize]
         public void CommandExecute()
         {
             App!.Dispatcher.Invoke(() =>
