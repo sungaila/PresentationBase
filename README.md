@@ -1,8 +1,8 @@
 <img src="https://raw.githubusercontent.com/sungaila/PresentationBase/master/Icon.png" align="left" width="64" height="64" alt="PresentationBase Logo">
 
 # PresentationBase
-[![Azure DevOps builds (branch)](https://img.shields.io/azure-devops/build/sungaila/69f6dcb7-b8ec-4fe8-b5b7-1923483c91f6/1/master?style=flat-square)](https://dev.azure.com/sungaila/PresentationBase/_build/latest?definitionId=1&branchName=master)
-[![Azure DevOps tests (branch)](https://img.shields.io/azure-devops/tests/sungaila/PresentationBase/1/master?style=flat-square)](https://dev.azure.com/sungaila/PresentationBase/_build/latest?definitionId=1&branchName=master)
+[![Azure DevOps builds (branch)](https://img.shields.io/azure-devops/build/sungaila/69f6dcb7-b8ec-4fe8-b5b7-1923483c91f6/2/master?style=flat-square)](https://dev.azure.com/sungaila/PresentationBase/_build/latest?definitionId=2&branchName=master)
+[![Azure DevOps tests (branch)](https://img.shields.io/azure-devops/tests/sungaila/PresentationBase/2/master?style=flat-square)](https://dev.azure.com/sungaila/PresentationBase/_build/latest?definitionId=2&branchName=master)
 [![NuGet version](https://img.shields.io/nuget/v/PresentationBase.svg?style=flat-square)](https://www.nuget.org/packages/PresentationBase/)
 [![NuGet downloads](https://img.shields.io/nuget/dt/PresentationBase.svg?style=flat-square)](https://www.nuget.org/packages/PresentationBase/)
 [![GitHub license](https://img.shields.io/github/license/sungaila/PresentationBase?style=flat-square)](https://github.com/sungaila/PresentationBase/blob/master/LICENSE)
