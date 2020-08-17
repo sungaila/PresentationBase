@@ -12,6 +12,7 @@ namespace PresentationBase.Tests.Extensions
         [DoNotParallelize]
         public void CommandExecute()
         {
+            Initialize();
             App!.Dispatcher.Invoke(() =>
             {
                 App.ShutdownMode = ShutdownMode.OnExplicitShutdown;

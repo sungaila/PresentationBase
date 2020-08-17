@@ -10,6 +10,7 @@ namespace PresentationBase.Tests
         [DoNotParallelize]
         public void TryFindChild()
         {
+            Initialize();
             App!.Dispatcher.Invoke(() =>
             {
                 var grid = new Grid();

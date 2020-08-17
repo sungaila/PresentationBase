@@ -12,6 +12,7 @@ namespace PresentationBase.Tests
         [DoNotParallelize]
         public void CommandExecute()
         {
+            Initialize();
             App!.Dispatcher.Invoke(() =>
             {
                 var viewModel = new TestViewModel();
