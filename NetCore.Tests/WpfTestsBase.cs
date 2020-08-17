@@ -30,12 +30,11 @@ namespace PresentationBase.Tests
             {
                 lock (AppLock)
                 {
-                    if (Initialized)
+                    if (Initialized || App != null)
                         return;
-
-                    new Application();
-                    Initialized = true;
                 }
+
+                new Application();
                 App!.Startup += (s, e) => appStarted = true;
                 App.Run();
             });
@@ -43,6 +42,11 @@ namespace PresentationBase.Tests
             AppThread.Start();
 
             while (!appStarted) { }
+
+            lock (AppLock)
+            {
+                Initialized = true;
+            }
         }
 
         protected void CreateInvisibleMainWindow()
@@ -61,13 +65,6 @@ namespace PresentationBase.Tests
         public void Cleanup()
         {
             Application.Current?.Dispatcher.Invoke(() => Application.Current?.MainWindow?.Close());
-        }
-
-        [AssemblyCleanup]
-        public static void Shutdown()
-        {
-            App?.Dispatcher.Invoke(() => App.Shutdown());
-            AppThread?.Join();
         }
     }
 }
