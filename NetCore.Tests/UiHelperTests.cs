@@ -8,9 +8,9 @@ namespace PresentationBase.Tests
     {
         [TestMethod]
         [DoNotParallelize]
+        [Ignore]
         public void TryFindChild()
         {
-            Initialize();
             App!.Dispatcher.Invoke(() =>
             {
                 var grid = new Grid();

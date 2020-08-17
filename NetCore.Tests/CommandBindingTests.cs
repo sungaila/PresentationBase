@@ -10,9 +10,9 @@ namespace PresentationBase.Tests
     {
         [TestMethod]
         [DoNotParallelize]
+        [Ignore]
         public void CommandExecute()
         {
-            Initialize();
             App!.Dispatcher.Invoke(() =>
             {
                 var viewModel = new TestViewModel();

@@ -10,9 +10,9 @@ namespace PresentationBase.Tests.Extensions
     {
         [TestMethod]
         [DoNotParallelize]
+        [Ignore]
         public void CommandExecute()
         {
-            Initialize();
             App!.Dispatcher.Invoke(() =>
             {
                 App.ShutdownMode = ShutdownMode.OnExplicitShutdown;
