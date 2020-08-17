@@ -7,6 +7,8 @@ namespace PresentationBase.Tests
     [TestClass]
     public class WpfTestsBase
     {
+        private static object AppLock = new object();
+
         protected static Application? App => Application.Current;
 
         private static Thread? AppThread { get; set; }
@@ -14,14 +16,23 @@ namespace PresentationBase.Tests
         [TestInitialize]
         public void Initialize()
         {
-            if (App != null)
-                return;
+            lock (AppLock)
+            {
+                if (App != null)
+                    return;
+            }
 
             bool appStarted = false;
 
             AppThread = new Thread(() =>
             {
-                new Application();
+                lock (AppLock)
+                {
+                    if (App != null)
+                        return;
+
+                    new Application();
+                }
                 App!.Startup += (s, e) => appStarted = true;
                 App.Run();
             });
