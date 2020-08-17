@@ -20,7 +20,7 @@ namespace PresentationBase.Tests
         {
             lock (AppLock)
             {
-                if (Initialized)
+                if (Initialized && App != null)
                     return;
             }
 
@@ -30,7 +30,7 @@ namespace PresentationBase.Tests
             {
                 lock (AppLock)
                 {
-                    if (Initialized || App != null)
+                    if (Initialized && App != null)
                         return;
                 }
 
