@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PresentationBase.Converters;
+using System;
 using System.Reflection;
 using System.Windows.Data;
 using System.Windows.Markup;
@@ -38,6 +39,15 @@ namespace PresentationBase.Tests.Converters
 
         public abstract void Convert();
 
-        public virtual void ConvertBack() { }
+        [TestMethod]
+        public virtual void ConvertBack()
+        {
+            if (_converter is ConverterBase converter)
+                Assert.ThrowsException<NotImplementedException>(() => converter.ConvertBack(null, null, null, null));
+            else if (_converter is MultiConverterBase multiConverter)
+                Assert.ThrowsException<NotImplementedException>(() => multiConverter.ConvertBack(null, null, null, null));
+            else
+                Assert.Fail($"Unknown converter type {_converter!.GetType()}");
+        }
     }
 }

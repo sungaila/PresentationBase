@@ -3,7 +3,7 @@ using PresentationBase.Extensions;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace PresentationBase.Tests
+namespace PresentationBase.Tests.Extensions
 {
     [TestClass]
     public class ButtonExtensionsTests : WpfTestsBase
