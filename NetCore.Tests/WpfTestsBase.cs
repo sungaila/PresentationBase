@@ -9,6 +9,8 @@ namespace PresentationBase.Tests
     {
         private static object AppLock = new object();
 
+        private static bool Initialized;
+
         protected static Application? App => Application.Current;
 
         private static Thread? AppThread { get; set; }
@@ -18,7 +20,7 @@ namespace PresentationBase.Tests
         {
             lock (AppLock)
             {
-                if (App != null)
+                if (Initialized)
                     return;
             }
 
@@ -28,10 +30,11 @@ namespace PresentationBase.Tests
             {
                 lock (AppLock)
                 {
-                    if (App != null)
+                    if (Initialized)
                         return;
 
                     new Application();
+                    Initialized = true;
                 }
                 App!.Startup += (s, e) => appStarted = true;
                 App.Run();
@@ -57,7 +60,7 @@ namespace PresentationBase.Tests
         [TestCleanup]
         public void Cleanup()
         {
-            Application.Current.Dispatcher.Invoke(() => Application.Current?.MainWindow?.Close());
+            Application.Current?.Dispatcher.Invoke(() => Application.Current?.MainWindow?.Close());
         }
 
         [AssemblyCleanup]
