@@ -36,7 +36,7 @@ jobs:
   - task: VSTest@2
     inputs:
       testSelector: 'testAssemblies'
-      testAssemblyVer2: '$(Build.SourcesDirectory)\Core.Tests\bin\$(buildConfiguration)\**\PresentationBase.Tests.dll'
+      testAssemblyVer2: '$(Build.SourcesDirectory)\NetCore.Tests\bin\$(buildConfiguration)\**\PresentationBase.Tests.dll'
       searchFolder: '$(System.DefaultWorkingDirectory)'
       runTestsInIsolation: true
       codeCoverageEnabled: true
