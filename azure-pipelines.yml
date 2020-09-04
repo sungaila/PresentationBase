@@ -6,45 +6,65 @@
 trigger:
 - master
 
-variables:
-  solution: '**/*.sln'
-  buildPlatform: 'Any CPU'
-  buildConfiguration: 'Debug'
+pool:
+  vmImage: 'windows-latest'
 
 jobs:
-- job: BuildTestPublish
-  displayName: 'Build, test & publish'
-  timeoutInMinutes: 30
-  pool:
-    vmImage: 'windows-latest'
+- job: Build
+  displayName: 'Build'
   steps:
+  - task: DotNetCoreCLI@2
+    displayName: 'Build solution'
+    inputs:
+      command: 'build'
+      configuration: $(buildConfiguration)
+      arguments: '-p:VersionSuffix=ci'
+  - task: PublishPipelineArtifact@1
+    displayName: 'Publish project assemblies'
+    inputs:
+      targetPath: '$(Build.SourcesDirectory)\NetCore\bin\$(buildConfiguration)'
+      artifact: 'Assemblies ($(buildConfiguration))'
+      publishLocation: 'pipeline'
+  - task: PublishPipelineArtifact@1
+    displayName: 'Publish test assemblies'
+    inputs:
+      targetPath: '$(Build.SourcesDirectory)\NetCore.Tests\bin\$(buildConfiguration)'
+      artifact: 'Tests'
+      publishLocation: 'pipeline'
+  - task: DotNetCoreCLI@2
+    displayName: 'Create NuGet package'
+    inputs:
+      command: 'pack'
+      packagesToPack: '$(Build.SourcesDirectory)\NetCore\NetCore.csproj'
+      nobuild: true
+      versioningScheme: 'off'
+      buildProperties: 'VersionSuffix=ci'
+  - task: PublishPipelineArtifact@1
+    displayName: 'Publish NuGet package'
+    inputs:
+      targetPath: '$(Build.ArtifactStagingDirectory)'
+      artifact: 'NuGet package ($(buildConfiguration))'
+      publishLocation: 'pipeline'
   
-  - task: NuGetToolInstaller@1
-
-  - task: NuGetCommand@2
+- job: Test
+  displayName: 'Test'
+  dependsOn: Build
+  steps:
+  - checkout: none
+    displayName: 'Skip checkout'
+  - task: DownloadPipelineArtifact@2
+    displayName: 'Download test assemblies'
     inputs:
-      restoreSolution: '$(solution)'
-
-  - task: VSBuild@1
-    inputs:
-      solution: '$(solution)'
-      platform: '$(buildPlatform)'
-      configuration: '$(buildConfiguration)'
-      maximumCpuCount: true
-      msbuildArchitecture: 'x64'
-
+      buildType: 'current'
+      artifactName: 'Tests'
+      targetPath: '$(Pipeline.Workspace)'
   - task: VSTest@2
+    displayName: 'Run tests'
     inputs:
       testSelector: 'testAssemblies'
-      testAssemblyVer2: '$(Build.SourcesDirectory)\NetCore.Tests\bin\$(buildConfiguration)\**\PresentationBase.Tests.dll'
+      testAssemblyVer2: '$(Pipeline.Workspace)\**\PresentationBase.Tests.dll'
       searchFolder: '$(System.DefaultWorkingDirectory)'
       runTestsInIsolation: true
       codeCoverageEnabled: true
       platform: '$(buildPlatform)'
       configuration: '$(buildConfiguration)'
-
-  - task: PublishPipelineArtifact@1
-    inputs:
-      targetPath: '$(Build.SourcesDirectory)\NetCore\bin\$(buildConfiguration)'
-      artifact: 'PresentationBase debug build ($(Build.SourceVersion))'
-      publishLocation: 'pipeline'
