@@ -8,8 +8,6 @@ namespace PresentationBase.Tests
     [TestClass]
     public class WpfTestsBase
     {
-        private static readonly object _lock = new object();
-
         protected static Application? App => Application.Current;
 
         private static Thread? AppThread { get; set; }
@@ -41,15 +39,7 @@ namespace PresentationBase.Tests
             AppThread.SetApartmentState(ApartmentState.STA);
             AppThread.Start();
 
-            if (Monitor.TryEnter(_lock, 5000))
-            {
-                while (!appStarted) { }
-                Monitor.Exit(_lock);
-            }
-            else
-            {
-                Assert.Fail("Timeout for WPF application initialization.");
-            }
+            while (!appStarted) { }
         }
 
         protected void CreateInvisibleMainWindow()
