@@ -11,10 +11,10 @@ A lightweight MVVM implementation for WPF ([Windows Presentation Foundation](htt
 
 It contains base implementations for *view models* (and their *commands*), frequently used *value converters*, useful *XAML markup extensions* and more. I consider these as a bare minimum when I start professional or free time WPF projects.
 
-A sample project can be found here: [<img src="https://raw.githubusercontent.com/sungaila/SUBSTitute/master/SUBSTitute.ico" align="center" width="16" height="16" alt="SUBSTitute Logo"> SUBSTitute](https://github.com/sungaila/SUBSTitute). The independent MVVM package can be found here: [<img src="https://raw.githubusercontent.com/sungaila/PresentationBase.Core/master/Icon.png" align="center" width="16" height="16" alt="PresentationBase Logo"> PresentationBase.Core](https://github.com/sungaila/PresentationBase.Core).
+The independent MVVM package can be found here: [<img src="https://raw.githubusercontent.com/sungaila/PresentationBase.Core/master/Icon.png" align="center" width="16" height="16" alt="PresentationBase Logo"> PresentationBase.Core](https://github.com/sungaila/PresentationBase.Core). A sample project can be found here: [<img src="https://raw.githubusercontent.com/sungaila/SUBSTitute/master/SUBSTitute.ico" align="center" width="16" height="16" alt="SUBSTitute Logo"> SUBSTitute](https://github.com/sungaila/SUBSTitute).
 
 ## Examples
-Here are some examples for using PresentationBase in your project.
+Take a look at the [Quick start in the wiki](https://github.com/sungaila/PresentationBase.Core/wiki). Here are some basic examples for using PresentationBase:
 
 ### ViewModels with bindable properties
 ```csharp
@@ -205,99 +205,4 @@ public class AlertCommandAsync : ViewModelCommandAsync<AwesomeViewModel>
         
         <TextBox Visibility="{Binding Name, Converter={Converters:NullToVisibilityConverter}}" />
 </Window>
-```
-
-### ViewModels ↔ Data Transfer Objects conversion
-```csharp
-// C# code of DTO class
-public class AwesomeTransferDataObject
-{
-    public string PersonName { get; set; }
-
-    public int PersonAge { get; set; }
-}
-```
-
-```csharp
-// C# code of your ViewModel class
-[Dto(typeof(AwesomeTransferDataObject))]
-public class AwesomeViewModel : ViewModel
-{
-    private string _name;
-
-    [DtoProperty(nameof(AwesomeTransferDataObject.PersonName))]
-    public string Name
-    {
-        get => _name;
-        set => SetProperty(ref _name, value);
-    }
-
-    private int _age;
-
-    [DtoProperty(nameof(AwesomeTransferDataObject.PersonAge))]
-    public int Age
-    {
-        get => _age;
-        set => SetProperty(ref _age, value);
-    }
-}
-```
-
-```csharp
-// C# code of the conversion
-var dto = new AwesomeTransferDataObject { PersonName = "John" };
-var viewModel = dto.ToViewModel<AwesomeViewModel>();
-if (viewModel.Name == "John")
-    viewModel.Age = 33;
-var dto2 = viewModel.ToDto<AwesomeTransferDataObject>();
-```
-
-### ... and nested ViewModels
-```csharp
-// C# code of DTO class
-public class NestedTransferDataObject
-{
-    public string Name { get; set; }
-
-    public List<NestedTransferDataObject> Others { get; set; }
-}
-```
-
-```csharp
-// C# code of your ViewModel class
-[Dto(typeof(NestedTransferDataObject))]
-public class NestedViewModel : ViewModel
-{
-    private string _name;
-
-    [DtoProperty]
-    public string Name
-    {
-        get => _name;
-        set => SetProperty(ref _name, value);
-    }
-
-    [DtoProperty]
-    public ObservableViewModelCollection<NestedViewModel> Others { get; }
-
-    public NestedViewModel()
-    {
-        Others = new ObservableViewModelCollection<NestedViewModel>(this);
-    }
-}
-```
-
-```csharp
-// C# code of the conversion
-var dto = new NestedTransferDataObject
-{
-    Name = "Timmy",
-    Others = new List<NestedTransferDataObject>(new[] {
-        new NestedTransferDataObject { PersonName = "Bobby" }
-    })
-};
-var viewModel = dto.ToViewModel<NestedViewModel>();
-if (viewModel.Others.Single().Name == "Bobby")
-    viewModel.Name = "Definitely not Timmy";
-var dto2 = viewModel.ToDto<NestedTransferDataObject>();
 ```
