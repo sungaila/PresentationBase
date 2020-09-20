@@ -8,6 +8,7 @@ namespace PresentationBase.Tests
     {
         [TestMethod]
         [DoNotParallelize]
+        [Ignore]
         public void TryFindChild()
         {
             App!.Dispatcher.Invoke(() =>
