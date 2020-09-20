@@ -10,7 +10,6 @@ namespace PresentationBase.Tests.Extensions
     {
         [TestMethod]
         [DoNotParallelize]
-        [Ignore]
         public void CommandExecute()
         {
             App!.Dispatcher.Invoke(() =>
