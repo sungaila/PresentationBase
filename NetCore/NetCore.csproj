@@ -12,7 +12,7 @@
 
   <!-- NuGet -->
   <PropertyGroup>
-    <VersionPrefix>3.2.0</VersionPrefix>
+    <VersionPrefix>3.3.0</VersionPrefix>
     <Authors>David Sungaila</Authors>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -20,11 +20,9 @@
     <PackageProjectUrl>https://github.com/sungaila/PresentationBase</PackageProjectUrl>
     <PackageIconUrl>https://raw.githubusercontent.com/sungaila/PresentationBase/master/NuGet/Icon.png</PackageIconUrl>
     <Description>A lightweight MVVM implementation for WPF (Windows Presentation Foundation) targeting both .NET Framework and .NET Core.</Description>
-    <PackageReleaseNotes>Updates coming from PresentationBase.Core 3.2.0:
-- ViewModels can be mapped to multiple data transfer objects
-- Nested data transfer objects can be converted to ViewModels (and vice versa)
-- ObservableViewModelCollections can be converted to Lists (and vice versa)
-- Fixed an issue with unhandled exceptions in async commands</PackageReleaseNotes>
+    <PackageReleaseNotes>Updates coming from PresentationBase.Core 3.3.0:
+- Added TrxViewModel for short-term and long-term rollbacks
+- ViewModel implements INotifyPropertyChanging now</PackageReleaseNotes>
     <PackageTags>WPF MVVM ViewModel Converter IValueConverter Command INotifyPropertyChanged INotifyDataErrorInfo ICommand XAML Markup DTO C#</PackageTags>
     <RepositoryUrl>https://github.com/sungaila/PresentationBase.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
@@ -69,7 +67,7 @@
 
   <!-- SourceLink build steps and PresentationBase.Core -->
   <ItemGroup>
-    <PackageReference Include="PresentationBase.Core" Version="3.2.0" />
+    <PackageReference Include="PresentationBase.Core" Version="3.3.0" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
