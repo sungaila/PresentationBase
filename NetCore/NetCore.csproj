@@ -23,7 +23,7 @@
     <PackageReleaseNotes>Updates coming from PresentationBase.Core 3.3.0:
 - Added TrxViewModel for short-term and long-term rollbacks
 - ViewModel implements INotifyPropertyChanging now</PackageReleaseNotes>
-    <PackageTags>WPF MVVM ViewModel Converter IValueConverter Command INotifyPropertyChanged INotifyDataErrorInfo ICommand XAML Markup DTO C#</PackageTags>
+    <PackageTags>WPF MVVM ViewModel Converter IValueConverter Command INotifyPropertyChanged INotifyPropertyChanging INotifyDataErrorInfo IEditableObject IRevertibleChangeTracking ICommand XAML Markup DTO C#</PackageTags>
     <RepositoryUrl>https://github.com/sungaila/PresentationBase.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <IncludeSymbols>true</IncludeSymbols>
