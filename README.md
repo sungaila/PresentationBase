@@ -7,7 +7,7 @@
 [![NuGet downloads](https://img.shields.io/nuget/dt/PresentationBase.svg?style=flat-square)](https://www.nuget.org/packages/PresentationBase/)
 [![GitHub license](https://img.shields.io/github/license/sungaila/PresentationBase?style=flat-square)](https://github.com/sungaila/PresentationBase/blob/master/LICENSE)
 
-A lightweight MVVM implementation for WPF ([Windows Presentation Foundation](https://en.wikipedia.org/wiki/Windows_Presentation_Foundation)) targeting both **.NET Framework** and **.NET Core**.
+A lightweight MVVM implementation for WPF ([Windows Presentation Foundation](https://en.wikipedia.org/wiki/Windows_Presentation_Foundation)) targeting both **.NET Framework** and **.NET (Core)**.
 
 It contains base implementations for *view models* (and their *commands*), frequently used *value converters*, useful *XAML markup extensions* and more. I consider these as a bare minimum when I start professional or free time WPF projects.
 

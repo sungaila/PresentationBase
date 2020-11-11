@@ -42,7 +42,7 @@ namespace PresentationBase.Tests
             while (!appStarted) { }
         }
 
-        protected void CreateInvisibleMainWindow()
+        protected static void CreateInvisibleMainWindow()
         {
             App!.MainWindow = new Window
             {
