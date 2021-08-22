@@ -21,8 +21,10 @@
     <PackageProjectUrl>https://github.com/sungaila/PresentationBase</PackageProjectUrl>
     <PackageIconUrl>https://raw.githubusercontent.com/sungaila/PresentationBase/master/NuGet/Icon.png</PackageIconUrl>
     <Description>A lightweight MVVM implementation for WPF (Windows Presentation Foundation) targeting both .NET Framework and .NET (Core).</Description>
-    <PackageReleaseNotes>- Added .NET 5.0 as a target framework
-- Updated to PresentationBase.Core 3.4.0</PackageReleaseNotes>
+    <PackageReleaseNotes>
+      - Added .NET 5.0 as a target framework
+      - Updated to PresentationBase.Core 3.4.0
+    </PackageReleaseNotes>
     <PackageTags>WPF MVVM ViewModel Converter IValueConverter Command INotifyPropertyChanged INotifyPropertyChanging INotifyDataErrorInfo IEditableObject IRevertibleChangeTracking ICommand XAML Markup DTO C#</PackageTags>
     <RepositoryUrl>https://github.com/sungaila/PresentationBase.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
@@ -58,7 +60,7 @@
       <PackagePath></PackagePath>
     </None>
   </ItemGroup>
-  
+
   <!-- Framework references -->
   <ItemGroup Condition="'$(TargetFramework)'=='net45' or '$(TargetFramework)'=='net48'">
     <Reference Include="System.Xaml" />

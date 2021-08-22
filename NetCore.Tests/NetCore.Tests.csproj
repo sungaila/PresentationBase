@@ -1,9 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <!-- Assembly -->
   <PropertyGroup>
-    <TargetFramework>net5.0-windows</TargetFramework>
+    <TargetFrameworks>net45;net48;netcoreapp3.1;net50-windows</TargetFrameworks>
     <AssemblyName>PresentationBase.Tests</AssemblyName>
     <RootNamespace>PresentationBase.Tests</RootNamespace>
+    <UseWPF>true</UseWPF>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
@@ -20,6 +21,14 @@
   <!-- Project references -->
   <ItemGroup>
     <ProjectReference Include="..\NetCore\NetCore.csproj" />
+  </ItemGroup>
+
+  <!-- Framework references -->
+  <ItemGroup Condition="'$(TargetFramework)'=='net45' or '$(TargetFramework)'=='net48'">
+    <Reference Include="System.Xaml" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
 
   <!-- NuGet Icon -->

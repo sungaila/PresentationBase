@@ -13,11 +13,6 @@ jobs:
 - job: Build
   displayName: 'Build'
   steps:
-  - task: UseDotNet@2
-    displayName: 'Install .NET 5 SDK'
-    inputs:
-      packageType: 'sdk'
-      version: '5.x'
   - task: DotNetCoreCLI@2
     displayName: 'Build solution'
     inputs:
@@ -63,18 +58,40 @@ jobs:
       buildType: 'current'
       artifactName: 'Tests'
       targetPath: '$(Pipeline.Workspace)'
-  - task: UseDotNet@2
-    displayName: 'Install .NET 5 SDK'
-    inputs:
-      packageType: 'sdk'
-      version: '5.x'
   - task: VSTest@2
-    displayName: 'Run tests'
+    displayName: '.NET Framework 4.5'
     inputs:
       testSelector: 'testAssemblies'
-      testAssemblyVer2: '$(Pipeline.Workspace)\**\net5.0-windows\PresentationBase.Tests.dll'
+      testAssemblyVer2: '$(Pipeline.Workspace)\**\net45\PresentationBase.Tests.dll'
       searchFolder: '$(System.DefaultWorkingDirectory)'
       runTestsInIsolation: true
       codeCoverageEnabled: true
+      testRunTitle: '.NET Framework 4.5'
       platform: '$(buildPlatform)'
       configuration: '$(buildConfiguration)'
+  - task: VSTest@2
+    displayName: '.NET Framework 4.8'
+    condition: succeededOrFailed()
+    inputs:
+      testSelector: 'testAssemblies'
+      testAssemblyVer2: '$(Pipeline.Workspace)\**\net48\PresentationBase.Tests.dll'
+      searchFolder: '$(System.DefaultWorkingDirectory)'
+      runTestsInIsolation: true
+      codeCoverageEnabled: true
+      testRunTitle: '.NET Framework 4.8'
+      platform: '$(buildPlatform)'
+      configuration: '$(buildConfiguration)'
+  - task: DotNetCoreCLI@2
+    displayName: '.NET Core 3.1'
+    condition: succeededOrFailed()
+    inputs:
+      command: 'test'
+      arguments: '$(Pipeline.Workspace)\**\netcoreapp3.1\PresentationBase.Tests.dll'
+      testRunTitle: '.NET Core 3.1 ($(agent.os))'
+  - task: DotNetCoreCLI@2
+    displayName: '.NET 5.0'
+    condition: succeededOrFailed()
+    inputs:
+      command: 'test'
+      arguments: '$(Pipeline.Workspace)\**\net50\PresentationBase.Tests.dll'
+      testRunTitle: '.NET 5.0 ($(agent.os))'
