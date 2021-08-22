@@ -93,5 +93,5 @@ jobs:
     condition: succeededOrFailed()
     inputs:
       command: 'test'
-      arguments: '$(Pipeline.Workspace)\**\net50\PresentationBase.Tests.dll'
+      arguments: '$(Pipeline.Workspace)\**\net50-windows\PresentationBase.Tests.dll'
       testRunTitle: '.NET 5.0 ($(agent.os))'

@@ -6,7 +6,7 @@ using System.Windows;
 namespace PresentationBase.Tests
 {
     [TestClass]
-    public class WpfTestsBase
+    public abstract class WpfTestsBase
     {
         protected static Application? App => Application.Current;
 

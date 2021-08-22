@@ -1,6 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PresentationBase.Converters;
-using System.Windows;
 
 namespace PresentationBase.Tests.Converters
 {
