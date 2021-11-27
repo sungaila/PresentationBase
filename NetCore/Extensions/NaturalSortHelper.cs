@@ -24,7 +24,7 @@ namespace PresentationBase.Extensions
             ParentViewModel = viewModel ?? throw new ArgumentNullException(nameof(viewModel));
         }
 
-        private static readonly Regex _paddingRegex = new Regex(@"\d+", RegexOptions.Compiled);
+        private static readonly Regex _paddingRegex = new(@"\d+", RegexOptions.Compiled);
 
         /// <summary>
         /// Takes a property name of the <see cref="ParentViewModel"/>.

@@ -26,7 +26,7 @@ namespace PresentationBase
             for (int i = 0; i < childrenCount; i++)
             {
                 var child = VisualTreeHelper.GetChild(parent, i);
-                if (!(child is T t))
+                if (child is not T t)
                 {
                     foundChild = TryFindChild<T>(child, childName);
 

@@ -1,18 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <!-- Assembly -->
   <PropertyGroup>
-    <TargetFrameworks>net45;net48;netcoreapp3.1;net50-windows</TargetFrameworks>
+    <TargetFrameworks>net461;net48;netcoreapp3.1;net5.0-windows</TargetFrameworks>
     <AssemblyName>PresentationBase</AssemblyName>
     <RootNamespace>PresentationBase</RootNamespace>
     <EmbedAllSources>true</EmbedAllSources>
-    <AssemblyOriginatorKeyFile>PresentationBase.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>PresentationBase.snk</AssemblyOriginatorKeyFile>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <UseWPF>true</UseWPF>
+    <Configurations>Debug;Release;ReleaseSigned</Configurations>
   </PropertyGroup>
 
   <!-- NuGet -->
   <PropertyGroup>
-    <VersionPrefix>3.4.0</VersionPrefix>
+    <VersionPrefix>3.5.0</VersionPrefix>
     <VersionSuffix></VersionSuffix>
     <Authors>David Sungaila</Authors>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
@@ -20,16 +21,14 @@
     <PackageIcon>Icon.png</PackageIcon>
     <PackageProjectUrl>https://github.com/sungaila/PresentationBase</PackageProjectUrl>
     <PackageIconUrl>https://raw.githubusercontent.com/sungaila/PresentationBase/master/NuGet/Icon.png</PackageIconUrl>
-    <Description>A lightweight MVVM implementation for WPF (Windows Presentation Foundation) targeting both .NET Framework and .NET (Core).</Description>
-    <PackageReleaseNotes>
-      - Added .NET 5.0 as a target framework
-      - Updated to PresentationBase.Core 3.4.0
-    </PackageReleaseNotes>
+    <Description>A lightweight MVVM implementation for WPF (Windows Presentation Foundation) targeting both .NET Framework and .NET.</Description>
+    <PackageReleaseNotes>Assemblies and NuGet package digitally signed.</PackageReleaseNotes>
     <PackageTags>WPF MVVM ViewModel Converter IValueConverter Command INotifyPropertyChanged INotifyPropertyChanging INotifyDataErrorInfo IEditableObject IRevertibleChangeTracking ICommand XAML Markup DTO C#</PackageTags>
     <RepositoryUrl>https://github.com/sungaila/PresentationBase.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <!-- C# compiler -->
@@ -37,32 +36,38 @@
     <LangVersion>9.0</LangVersion>
     <Nullable>enable</Nullable>
     <Features>strict</Features>
-    <WarningsAsErrors>nullable;NU1605</WarningsAsErrors>
+    <WarningsAsErrors>nullable;NU1605;RS0017;RS0024;RS0025;RS0026;RS0036;RS0037;RS0041;RS0048;RS0050</WarningsAsErrors>
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
   </PropertyGroup>
 
   <!-- Debug builds -->
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)'=='Debug'">
     <VersionSuffix>debug</VersionSuffix>
   </PropertyGroup>
 
   <!-- Release builds -->
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)'=='Release' or '$(Configuration)'=='ReleaseSigned'">
     <SignAssembly>true</SignAssembly>
     <Optimize>true</Optimize>
+    <Deterministic>true</Deterministic>
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
   </PropertyGroup>
+
+  <!-- Roslyn analyzer for public APIs -->
+  <ItemGroup>
+    <AdditionalFiles Include="PublicAPI/$(TargetFramework)/PublicAPI.Shipped.txt" />
+    <AdditionalFiles Include="PublicAPI/$(TargetFramework)/PublicAPI.Unshipped.txt" />
+  </ItemGroup>
 
   <!-- NuGet Icon -->
   <ItemGroup>
-    <None Include="..\NuGet\Icon.png">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
+    <None Include="..\NuGet\Icon.png" Pack="true" PackagePath="" />
+    <None Include="..\README.md" Pack="true" PackagePath="" />
   </ItemGroup>
 
   <!-- Framework references -->
-  <ItemGroup Condition="'$(TargetFramework)'=='net45' or '$(TargetFramework)'=='net48'">
+  <ItemGroup Condition="'$(TargetFramework)'=='net461' or '$(TargetFramework)'=='net48'">
     <Reference Include="System.Xaml" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -71,10 +76,18 @@
 
   <!-- SourceLink build steps and PresentationBase.Core -->
   <ItemGroup>
-    <PackageReference Include="PresentationBase.Core" Version="3.4.0" />
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0">
+    <PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" Version="3.3.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="PresentationBase.Core" Version="3.5.0" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
   </ItemGroup>
+
+  <Import Project="PresentationBase.PropertiesSigning.targets" />
+  <Import Project="PresentationBase.CodeSigning.targets" />
+  <Import Project="PresentationBase.PackageSigning.targets" />
 </Project>

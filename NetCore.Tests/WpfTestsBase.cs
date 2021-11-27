@@ -27,7 +27,9 @@ namespace PresentationBase.Tests
 
                 try
                 {
+#pragma warning disable CA1806
                     new Application();
+#pragma warning restore CA1806
                     App!.Startup += (s, e) => appStarted = true;
                     App.Run();
                 }

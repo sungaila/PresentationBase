@@ -1,3 +1,4 @@
+# ![PresentationBase Logo](https://raw.githubusercontent.com/sungaila/PresentationBase/master/Icon_64.png) PresentationBase
 <img src="https://raw.githubusercontent.com/sungaila/PresentationBase/master/Icon.png" align="left" width="64" height="64" alt="PresentationBase Logo">
 
 # PresentationBase
@@ -8,11 +9,9 @@
 [![NuGet downloads](https://img.shields.io/nuget/dt/PresentationBase.svg?style=flat-square)](https://www.nuget.org/packages/PresentationBase/)
 [![GitHub license](https://img.shields.io/github/license/sungaila/PresentationBase?style=flat-square)](https://github.com/sungaila/PresentationBase/blob/master/LICENSE)
 
-A lightweight MVVM implementation for WPF ([Windows Presentation Foundation](https://en.wikipedia.org/wiki/Windows_Presentation_Foundation)) targeting both **.NET Framework** and **.NET (Core)**.
+A lightweight MVVM implementation for WPF ([Windows Presentation Foundation](https://en.wikipedia.org/wiki/Windows_Presentation_Foundation)) targeting both **.NET Framework** and **.NET**.
 
 It contains base implementations for *view models* (and their *commands*), frequently used *value converters*, useful *XAML markup extensions* and more. I consider these as a bare minimum when I start professional or free time WPF projects.
-
-The independent MVVM package can be found here: [<img src="https://raw.githubusercontent.com/sungaila/PresentationBase.Core/master/Icon.png" align="center" width="16" height="16" alt="PresentationBase Logo"> PresentationBase.Core](https://github.com/sungaila/PresentationBase.Core). A sample project can be found here: [<img src="https://raw.githubusercontent.com/sungaila/SUBSTitute/master/SUBSTitute.ico" align="center" width="16" height="16" alt="SUBSTitute Logo"> SUBSTitute](https://github.com/sungaila/SUBSTitute).
 
 ## Examples
 Take a look at the [Quick start in the wiki](https://github.com/sungaila/PresentationBase.Core/wiki). Here are some basic examples for using PresentationBase:

@@ -17,7 +17,7 @@ namespace PresentationBase.Converters
         /// <inheritdoc/>
         public override object? Convert(object? value, Type? targetType, object? parameter, CultureInfo? culture)
         {
-            if (!(value is Enum))
+            if (value is not Enum)
                 return DependencyProperty.UnsetValue;
 
             return Enum.GetName(value.GetType(), value);

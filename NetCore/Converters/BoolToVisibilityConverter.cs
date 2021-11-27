@@ -17,7 +17,7 @@ namespace PresentationBase.Converters
         /// <inheritdoc/>
         public override object? Convert(object? value, Type? targetType, object? parameter, CultureInfo? culture)
         {
-            if (!(value is bool))
+            if (value is not bool)
                 return DependencyProperty.UnsetValue;
 
             return (bool)value ? Visibility.Visible : Visibility.Collapsed;
@@ -26,7 +26,7 @@ namespace PresentationBase.Converters
         /// <inheritdoc/>
         public override object? ConvertBack(object? value, Type? targetType, object? parameter, CultureInfo? culture)
         {
-            if (!(value is Visibility))
+            if (value is not Visibility)
                 return DependencyProperty.UnsetValue;
 
             return (Visibility)value == Visibility.Visible;

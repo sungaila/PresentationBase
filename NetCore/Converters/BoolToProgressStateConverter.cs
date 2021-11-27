@@ -18,7 +18,7 @@ namespace PresentationBase.Converters
         /// <inheritdoc/>
         public override object? Convert(object? value, Type? targetType, object? parameter, CultureInfo? culture)
         {
-            if (!(value is bool))
+            if (value is not bool)
                 return DependencyProperty.UnsetValue;
 
             return (bool)value ? TaskbarItemProgressState.Indeterminate : TaskbarItemProgressState.None;
@@ -27,7 +27,7 @@ namespace PresentationBase.Converters
         /// <inheritdoc/>
         public override object? ConvertBack(object? value, Type? targetType, object? parameter, CultureInfo? culture)
         {
-            if (!(value is TaskbarItemProgressState))
+            if (value is not TaskbarItemProgressState)
                 return DependencyProperty.UnsetValue;
 
             return (TaskbarItemProgressState)value == TaskbarItemProgressState.Indeterminate;

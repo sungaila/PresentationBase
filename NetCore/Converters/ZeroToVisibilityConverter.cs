@@ -18,7 +18,7 @@ namespace PresentationBase.Converters
         /// <inheritdoc/>
         public override object? Convert(object? value, Type? targetType, object? parameter, CultureInfo? culture)
         {
-            if (!(value is int))
+            if (value is not int)
                 return Visibility.Collapsed;
 
             return (int)value == 0 ? Visibility.Visible : Visibility.Collapsed;

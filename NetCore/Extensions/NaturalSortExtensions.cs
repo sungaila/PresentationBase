@@ -10,7 +10,7 @@ namespace PresentationBase.Extensions
     /// </summary>
     public static class NaturalSortExtensions
     {
-        private static readonly Regex _naturalRegex = new Regex(@"\d+", RegexOptions.Compiled);
+        private static readonly Regex _naturalRegex = new(@"\d+", RegexOptions.Compiled);
 
         /// <summary>
         /// Sorts a given <see cref="string"/> collection in an <strong>ascending</strong> natural order by considering decimal substrings.

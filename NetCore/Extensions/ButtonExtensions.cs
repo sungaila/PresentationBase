@@ -19,7 +19,7 @@ namespace PresentationBase.Extensions
 
         private static void DialogResultPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (!(d is Button button))
+            if (d is not Button button)
                 return;
 
             button.Click -= ButtonClickHandler;

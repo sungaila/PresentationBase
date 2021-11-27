@@ -19,7 +19,7 @@ namespace PresentationBase.Converters
         /// <inheritdoc/>
         public override object? Convert(object[]? values, Type? targetType, object? parameter, CultureInfo? culture)
         {
-            if (values == null || values.Any(v => !(v is bool)))
+            if (values == null || values.Any(v => v is not bool))
                 return DependencyProperty.UnsetValue;
 
             return values.Cast<bool>().Any(b => b) ? Visibility.Collapsed : Visibility.Visible;
