@@ -1,5 +1,4 @@
 # ![PresentationBase Logo](https://raw.githubusercontent.com/sungaila/PresentationBase/master/Icon_64.png) PresentationBase
-<img src="https://raw.githubusercontent.com/sungaila/PresentationBase/master/Icon.png" align="left" width="64" height="64" alt="PresentationBase Logo">
 
 # PresentationBase
 [![Azure DevOps builds (branch)](https://img.shields.io/azure-devops/build/sungaila/69f6dcb7-b8ec-4fe8-b5b7-1923483c91f6/2/master?style=flat-square)](https://dev.azure.com/sungaila/PresentationBase/_build/latest?definitionId=2&branchName=master)
