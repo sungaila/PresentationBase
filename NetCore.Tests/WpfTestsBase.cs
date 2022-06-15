@@ -2,6 +2,7 @@
 using System;
 using System.Threading;
 using System.Windows;
+[assembly: Parallelize(Scope = ExecutionScope.MethodLevel)]
 
 namespace PresentationBase.Tests
 {

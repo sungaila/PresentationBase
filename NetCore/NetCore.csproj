@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <!-- Assembly -->
   <PropertyGroup>
-    <TargetFrameworks>net461;net48;netcoreapp3.1;net5.0-windows</TargetFrameworks>
+    <TargetFrameworks>net462;net48;netcoreapp3.1;net6.0-windows</TargetFrameworks>
     <AssemblyName>PresentationBase</AssemblyName>
     <RootNamespace>PresentationBase</RootNamespace>
     <EmbedAllSources>true</EmbedAllSources>
@@ -13,7 +13,7 @@
 
   <!-- NuGet -->
   <PropertyGroup>
-    <VersionPrefix>3.5.0</VersionPrefix>
+    <VersionPrefix>3.6.0</VersionPrefix>
     <VersionSuffix></VersionSuffix>
     <Authors>David Sungaila</Authors>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
@@ -22,7 +22,8 @@
     <PackageProjectUrl>https://github.com/sungaila/PresentationBase</PackageProjectUrl>
     <PackageIconUrl>https://raw.githubusercontent.com/sungaila/PresentationBase/master/NuGet/Icon.png</PackageIconUrl>
     <Description>A lightweight MVVM implementation for WPF (Windows Presentation Foundation) targeting both .NET Framework and .NET.</Description>
-    <PackageReleaseNotes>Assemblies and NuGet package digitally signed.</PackageReleaseNotes>
+    <PackageReleaseNotes>- Updated to PresentationBase.Core 3.6.0.
+- Added .NET 6.0 as a target framework.</PackageReleaseNotes>
     <PackageTags>WPF MVVM ViewModel Converter IValueConverter Command INotifyPropertyChanged INotifyPropertyChanging INotifyDataErrorInfo IEditableObject IRevertibleChangeTracking ICommand XAML Markup DTO C#</PackageTags>
     <RepositoryUrl>https://github.com/sungaila/PresentationBase.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
@@ -33,10 +34,10 @@
 
   <!-- C# compiler -->
   <PropertyGroup>
-    <LangVersion>9.0</LangVersion>
+    <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <Features>strict</Features>
-    <WarningsAsErrors>nullable;NU1605;RS0017;RS0024;RS0025;RS0026;RS0036;RS0037;RS0041;RS0048;RS0050</WarningsAsErrors>
+    <WarningsAsErrors>nullable</WarningsAsErrors>
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
   </PropertyGroup>
@@ -56,8 +57,8 @@
 
   <!-- Roslyn analyzer for public APIs -->
   <ItemGroup>
-    <AdditionalFiles Include="PublicAPI/$(TargetFramework)/PublicAPI.Shipped.txt" />
-    <AdditionalFiles Include="PublicAPI/$(TargetFramework)/PublicAPI.Unshipped.txt" />
+    <AdditionalFiles Include="PublicAPI\$(TargetFramework)\PublicAPI.Shipped.txt" />
+    <AdditionalFiles Include="PublicAPI\$(TargetFramework)\PublicAPI.Unshipped.txt" />
   </ItemGroup>
 
   <!-- NuGet Icon -->
@@ -67,7 +68,7 @@
   </ItemGroup>
 
   <!-- Framework references -->
-  <ItemGroup Condition="'$(TargetFramework)'=='net461' or '$(TargetFramework)'=='net48'">
+  <ItemGroup Condition="'$(TargetFramework)'=='net462' or '$(TargetFramework)'=='net48'">
     <Reference Include="System.Xaml" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -80,7 +81,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="PresentationBase.Core" Version="3.5.0" />
+    <PackageReference Include="PresentationBase.Core" Version="3.6.0" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

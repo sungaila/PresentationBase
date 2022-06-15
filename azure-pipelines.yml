@@ -62,11 +62,11 @@ jobs:
     displayName: '.NET Framework 4.6.1'
     inputs:
       testSelector: 'testAssemblies'
-      testAssemblyVer2: '$(Pipeline.Workspace)\**\net461\PresentationBase.Tests.dll'
+      testAssemblyVer2: '$(Pipeline.Workspace)\**\net462\PresentationBase.Tests.dll'
       searchFolder: '$(System.DefaultWorkingDirectory)'
       runTestsInIsolation: true
       codeCoverageEnabled: true
-      testRunTitle: '.NET Framework 4.6.1'
+      testRunTitle: '.NET Framework 4.6.2'
       platform: '$(buildPlatform)'
       configuration: '$(buildConfiguration)'
   - task: VSTest@2
