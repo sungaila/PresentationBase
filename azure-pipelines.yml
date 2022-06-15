@@ -23,7 +23,7 @@ jobs:
     displayName: 'Restore solution'
     inputs:
       command: 'restore'
-      projects: 'PresentationBase.Core.sln'
+      projects: 'PresentationBase.sln'
       feedsToUse: 'select'
   - task: DotNetCoreCLI@2
     displayName: 'Build solution'
